@@ -1,11 +1,14 @@
 public class Bitboard {
     private long board;
-    private boolean colour;
-    private char piece;
 
-    public Bitboard(boolean colour, char piece) {
+    public Bitboard() {
         this.board = 0x000000000000FF00L;
     }
+
+    public long getBoard() {
+        return this.board;
+    }
+
 
     public String toString() {
         StringBuilder boardBuilder = new StringBuilder();
