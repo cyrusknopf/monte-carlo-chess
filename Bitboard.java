@@ -8,7 +8,6 @@ public class Bitboard{
         this.colour = colour;
         this.piece = piece;
 
-        
         int diff = Character.getNumericValue(piece)-65;
         if(diff<=2){
             for(int i=0;i<4;i++){
@@ -70,11 +69,6 @@ public class Bitboard{
     public long getLayout(){
         return this.layout;
     }
-   // @Override
-   // public String toString(){
-        //int length = this.getLayout().toStr
-    //}
-
     public String toString() {
         StringBuilder boardBuilder = new StringBuilder();
 
@@ -92,9 +86,10 @@ public class Bitboard{
         boardBuilder.append("A B C D E F G H");
         return boardBuilder.toString();
     }
-
     public static void main(String[] args){
         
         
     }
+
+
 }
