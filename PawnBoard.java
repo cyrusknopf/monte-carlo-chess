@@ -1,16 +1,13 @@
 public class PawnBoard extends Bitboard {
-    private boolean colour;
-    private long init;
-    private long board;
-    
-    public PawnBoard() {
-        super();
-        this.init = 0x000000000000FF00L;
-        this.board = super.getBoard();
-    }
+    private long init = 0x000000000000FF00L;
 
-    public long initialiseBoard(boolean colour) {
-        board = init;
-        return board;
+    public long initialiseBoard(boolean isBlack) {
+        if (isBlack) {
+            super.board = Long.reverse(init);
+        } else {
+            long reversedInit = init;
+            super.board = reversedInit;
+        }
+        return super.board;
     }
 }

@@ -1,15 +1,12 @@
-public class Bitboard {
-    private long board;
 
-    public Bitboard() {
-        this.board = 0x000000000000FF00L;
-    }
+public class Bitboard {
+    protected long board;
 
     public long getBoard() {
         return this.board;
     }
 
-
+    @Override
     public String toString() {
         StringBuilder boardBuilder = new StringBuilder();
 
@@ -27,5 +24,4 @@ public class Bitboard {
         boardBuilder.append("A B C D E F G H");
         return boardBuilder.toString();
     }
-
 }
