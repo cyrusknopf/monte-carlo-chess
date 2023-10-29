@@ -1,6 +1,6 @@
 public class Chess {
     public static void main(String[] args) {
-        PawnBoard p = new PawnBoard();
+        KingBoard p = new KingBoard();
         p.initialiseBoard(true);
         System.out.println("Board in chess:\n" + p);
     }
