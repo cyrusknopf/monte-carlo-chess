@@ -2,13 +2,14 @@ public class Bitboard{
     private long layout;
     private boolean colour;
     private char piece;
-    String row;
+    private String row = "";
 
     public Bitboard(boolean colour, char piece){
         this.colour = colour;
         this.piece = piece;
 
-        int diff = Character.getNumericValue(piece)-65;
+        int diff = Character.getNumericValue(piece)-10;
+        System.out.println(diff);
         if(diff<=2){
             for(int i=0;i<4;i++){
                 if(i==diff){
@@ -21,11 +22,11 @@ public class Bitboard{
             String temp = this.reverse(row);
             row+=temp;
             temp=row;
-            row = "00000000000000000000000000000000000000000000000000000000" + row;
             if(colour==false){
                 row = temp+"00000000000000000000000000000000000000000000000000000000";
             }
-            this.layout=Long.parseLong(row);
+            this.layout = 0b0000000000000000000000000000000000000000000000000000000000000000L;
+            this.layout=this.convertToLong(row);
         }
         else if(diff==3||diff==4){
             for(int i=0;i<8;i++){
@@ -37,20 +38,33 @@ public class Bitboard{
                 }
             }
             String temp = row;
-            row = "000000000000000000000000000000000000000000000000"+row+"00000000";
+            row = "00000000000000000000000000000000000000000000000000000000"+row;
             if(colour==false){
-                row = "00000000"+temp+"000000000000000000000000000000000000000000000000";
+                row = temp+"00000000000000000000000000000000000000000000000000000000";
               }
-            this.layout=Long.parseLong(row);
+            this.layout=this.convertToLong(row);
         }
         else{
-            if(colour=true){
+            if(colour==true){
                 layout=0b0000000000000000000000000000000000000000000000001111111100000000L;
             }
-            else{
+            else if(colour==false){
                 layout=0b0000000011111111000000000000000000000000000000000000000000000000L;
             }
         }
+    }
+    public long convertToLong(String binaryString) {
+        long result = 0;
+
+        // Iterate through the characters of the binary string from left to right
+        for (int i = 0; i < binaryString.length(); i++) {
+            char digit = binaryString.charAt(i);
+
+            // Multiply the current result by 2 and add the current digit (0 or 1)
+            result = result * 2 + (digit - '0');
+        }
+
+        return result;
     }
     public String reverse(String input){
         char[] in = input.toCharArray();
@@ -87,7 +101,8 @@ public class Bitboard{
         return boardBuilder.toString();
     }
     public static void main(String[] args){
-        
+        Bitboard x = new Bitboard(false,'Z');
+        System.out.println(x.toString());
         
     }
 
