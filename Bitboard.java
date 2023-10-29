@@ -16,12 +16,12 @@ public class Bitboard {
 
             if (i % 8 == 0) {
                 int row = i / 8;
-                boardBuilder.append("|" + row);
+                boardBuilder.append("|" + (row + 1));
                 boardBuilder.append("\n");
             }
         }
         boardBuilder.append("---------------\n");
-        boardBuilder.append("A B C D E F G H");
+        boardBuilder.append("a b c d e f g h");
         return boardBuilder.toString();
     }
 }
