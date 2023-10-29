@@ -40,7 +40,7 @@ public class Bitboard{
             row = "000000000000000000000000000000000000000000000000"+row+"00000000";
             if(colour==false){
                 row = "00000000"+temp+"000000000000000000000000000000000000000000000000";
-            }
+              }
             this.layout=Long.parseLong(row);
         }
         else{
