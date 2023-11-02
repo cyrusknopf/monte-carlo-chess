@@ -1,5 +1,6 @@
 public class Bitboard {
     protected long board;
+    protected long empty;
 
     public long getBoard() {
         return this.board;

@@ -1,9 +1,20 @@
 public class Chess {
     public static void main(String[] args) {
-        BishopBoard p = new BishopBoard();
+        PawnBoard p = new PawnBoard();
         p.initialiseBoard(false);
-        System.out.println("Board for white:\n" + p);
-        p.initialiseBoard(true);
-        System.out.println("\nBoard for black:\n" + p);
+
+        Bitboard w = new Bitboard();
+        w.board = 1L << (1 + 1*8);
+        System.out.println("\n w:\n");
+        System.out.println(w);
+
+        p.board = p.board ^ w.board;
+        System.out.println("\n XOR'd pawnboard:\n");
+        System.out.println(p);
+        w.board = w.board << 8;
+        p.board |= w.board;
+        System.out.println(p);
+
+
     }
 }
