@@ -3,10 +3,10 @@ public class QueenBoard extends Bitboard {
 
     public long initialiseBoard(boolean isBlack) {
         if (isBlack) {
-            super.board = Long.reverse(init);
+            super.state = Long.reverse(init);
         } else {
-            super.board = init;
+            super.state = init;
         }
-        return super.board;
+        return super.state;
     }
 }

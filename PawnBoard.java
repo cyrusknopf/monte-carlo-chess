@@ -1,17 +1,19 @@
 public class PawnBoard extends Bitboard {
     private long init = 0x000000000000FF00L;
+    private Chess game;
 
-    public PawnBoard() {
+    public PawnBoard(Chess game) {
         this.empty = 0x0L;
+        this.game = game;
     }
 
     public long initialiseBoard(boolean isBlack) {
         if (isBlack) {
-            super.board = Long.reverse(init);
+            super.state = Long.reverse(init);
         } else {
-            super.board = init;
+            super.state = init;
         }
-        return super.board;
+        return super.state;
     }
     
     public long checkMoves() {
