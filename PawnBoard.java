@@ -13,20 +13,7 @@ public class PawnBoard extends Bitboard {
         }
         return super.board;
     }
-
-    public long primitiveMove(int rank, int file) {
-        
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.board = this.board ^ mask;
-        // System.out.println("\n XOR'd pawnboard:\n");
-        // System.out.println(p);
-        mask = mask << 8;
-        this.board |= mask;
-        return this.board;
-    }
-
-
-
+    
     public long checkMoves() {
         return 0;
     }
