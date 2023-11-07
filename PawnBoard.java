@@ -20,7 +20,6 @@ public class PawnBoard extends Bitboard {
         return super.state;
     }
 
-
     // Returns an array of boards containing just each piece of the board.
     public ArrayList<PawnBoard> getAllBoards() {
         ArrayList<PawnBoard> pawnBoards = new ArrayList<>();
@@ -31,5 +30,4 @@ public class PawnBoard extends Bitboard {
         }
         return pawnBoards;
     }
-
 }
