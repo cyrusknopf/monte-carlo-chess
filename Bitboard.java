@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Bitboard {
     protected long state;
     protected long empty;
@@ -6,6 +8,22 @@ public class Bitboard {
         return this.state;
     }
 
+
+
+    // Returns a list of bitboard longs that contain each piece of the board.
+    public ArrayList<Long> getAllPieceStates() {
+        long initState = this.state;
+        ArrayList<Long> longs = new ArrayList<>();
+        while (initState != 0) {
+            long thisPiece = initState & -initState;
+            longs.add(thisPiece);
+            initState &= initState -1; 
+        }
+        return longs;
+    }
+
+
+
     public long slideNorth(int rank, int file) {
         long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
         this.state = this.state ^ mask;
@@ -13,6 +31,12 @@ public class Bitboard {
         this.state |= mask;
         return this.state;
     }
+
+    public long slideNorth() {
+        this.state = this.state << 8;
+        return this.state;
+    }
+
 
     public long slideNorthEast(int rank, int file) {
         long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
