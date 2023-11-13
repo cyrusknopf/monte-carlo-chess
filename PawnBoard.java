@@ -44,7 +44,6 @@ public class PawnBoard extends Bitboard {
     }
 
 
-    // I believe this only checks for collisions with other white pawns as the tempcurrentboard is a pawnboard
     public ArrayList<PawnBoard> getPseudoLegalPushes() {
         PawnBoard tempMovedBoard = this.copy();
         tempMovedBoard.state = this.state;
