@@ -67,7 +67,6 @@ public class PawnBoard extends Bitboard {
     }
 
     public ArrayList<PawnBoard> getPseudoLegalCaptures() {
-        PawnBoard tempCurrentBoard = this;
         PawnBoard tempMovedBoard;
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
 
@@ -96,6 +95,14 @@ public class PawnBoard extends Bitboard {
             tempMovedBoard = this.copy();
             tempMovedBoard.slideSouthEast();
             // Checks there are no collisions wiht other black pieces
+            if ((this.game.getGameState(!colour) & tempMovedBoard.state) == 0) {
+                // Checks that there is at least one collision with a white piece ie a capture
+                if ((this.game.getGameState(colour) & tempMovedBoard.state) > 0) {
+                    pseudoLegalMoves.add(tempMovedBoard);
+                }
+            }
+            tempMovedBoard = this.copy();
+            tempMovedBoard.slideSouthWest();
             if ((this.game.getGameState(!colour) & tempMovedBoard.state) == 0) {
                 // Checks that there is at least one collision with a white piece ie a capture
                 if ((this.game.getGameState(colour) & tempMovedBoard.state) > 0) {
