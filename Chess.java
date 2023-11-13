@@ -39,6 +39,14 @@ public class Chess {
         return this.game_board.state;
     }
 
+    public long getGameState(boolean colour) {
+        if (colour) {
+            return white_pawns.state ^ white_horses.state;
+        }
+        else {
+            return black_pawns.state ^ black_horses.state;
+        }
+    }
 
 
 
@@ -49,11 +57,11 @@ public class Chess {
         game.black_pawns.initialiseBoard();
 
         for (PawnBoard board : game.white_pawns.getAllBoards()) {
-            System.out.println(board.canPseudoLegalPush());
+            System.out.println(board.getPseudoLegalPushes());
         }
 
         for (PawnBoard board : game.black_pawns.getAllBoards()) {
-            System.out.println(board.canPseudoLegalPush());
+            System.out.println(board.getPseudoLegalPushes());
         }   
     }
 }

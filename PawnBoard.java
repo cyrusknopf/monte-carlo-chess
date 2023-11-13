@@ -11,6 +11,18 @@ public class PawnBoard extends Bitboard {
         this.colour = colour;
     }
 
+    public PawnBoard(PawnBoard other) {
+        this.init = other.init;
+        this.game = other.game;
+        this.colour = other.colour;
+
+    }
+
+    @Override
+    public PawnBoard copy() {
+        return new PawnBoard(this);
+    }
+
     public long initialiseBoard() {
         if (!this.colour) {
             super.state = Long.reverse(init);
@@ -31,32 +43,68 @@ public class PawnBoard extends Bitboard {
         return pawnBoards;
     }
 
-    public ArrayList<PawnBoard> canPseudoLegalPush() {
-        PawnBoard tempCurrentBoard = this;
-        PawnBoard tempMovedBoard = new PawnBoard(this.game, this.colour);
+
+    // I believe this only checks for collisions with other white pawns as the tempcurrentboard is a pawnboard
+    public ArrayList<PawnBoard> getPseudoLegalPushes() {
+        PawnBoard tempMovedBoard = this.copy();
         tempMovedBoard.state = this.state;
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
 
-        if (this.colour) {
+        if (colour) {
             tempMovedBoard.slideNorth();
+            // Checking for collisions
+            if ((this.game.getGameState() & tempMovedBoard.state) == 0) {
+                pseudoLegalMoves.add(tempMovedBoard);
+            }
         }
         else {
             tempMovedBoard.slideSouth();
-        }
-        
-        if ((tempCurrentBoard.state & tempMovedBoard.state) == 0) {
-            pseudoLegalMoves.add(tempMovedBoard);
+            // Checking for collisions
+            if ((this.game.getGameState() & tempMovedBoard.state) == 0) {
+                pseudoLegalMoves.add(tempMovedBoard);
+            }
         }
         return pseudoLegalMoves;
     }
 
-    // public boolean canPseudoLegalCapture() {
-    //     long tempState = this.game.getGameState();
-    //     long madeMoveState;
+    public ArrayList<PawnBoard> getPseudoLegalCaptures() {
+        PawnBoard tempCurrentBoard = this;
+        PawnBoard tempMovedBoard;
+        ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
 
-    //     if (this.colour = true) {
-    //         madeMoveState = this.slideEast();
-    //     }
-    // }
+        if (colour) {
+            tempMovedBoard = this.copy();
+            tempMovedBoard.slideNorthEast();
+            // Checks if there are no colisions with other white pieces
+            if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
+                // Checks that there is at least one collision with a black piece ie a capture
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) > 0) {
+                    pseudoLegalMoves.add(tempMovedBoard);
+                }
+            }
+            tempMovedBoard = this.copy();
+            tempMovedBoard.slideNorthWest();
+            // Checks if there are no colisions with other white pieces
+            if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
+                // Checks that there is at least one collision with a black piece ie a capture
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) > 0) {
+                    pseudoLegalMoves.add(tempMovedBoard);
+                }
+            }
+
+        }
+        else {
+            tempMovedBoard = this.copy();
+            tempMovedBoard.slideSouthEast();
+            // Checks there are no collisions wiht other black pieces
+            if ((this.game.getGameState(!colour) & tempMovedBoard.state) == 0) {
+                // Checks that there is at least one collision with a white piece ie a capture
+                if ((this.game.getGameState(colour) & tempMovedBoard.state) > 0) {
+                    pseudoLegalMoves.add(tempMovedBoard);
+                }
+            }
+        }
+        return pseudoLegalMoves;
+    }
 
 }

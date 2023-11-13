@@ -4,6 +4,20 @@ public class Bitboard {
     protected long state;
     protected long empty;
 
+
+    public Bitboard(){}
+
+    // Copy contructor
+    public Bitboard(Bitboard other) {
+        this.state = other.state;
+        this.empty = other.empty;
+    }
+
+    public Bitboard copy() {
+        return new Bitboard(this);
+    }
+
+
     public long getBoard() {
         return this.state;
     }
@@ -45,6 +59,11 @@ public class Bitboard {
         this.state |= mask;
         return this.state;
     }
+
+    public long slideNorthEast() {
+        this.state = this.state << 9;
+        return this.state;
+    }
     
     public long slideEast() {
         this.state = this.state << 1;
@@ -64,6 +83,11 @@ public class Bitboard {
         this.state = this.state ^ mask;
         mask = mask >> 9;
         this.state |= mask;
+        return this.state;
+    }
+
+    public long slideSouthEast() {
+        this.state = this.state >> 9;
         return this.state;
     }
 
@@ -101,6 +125,11 @@ public class Bitboard {
         this.state = this.state ^ mask;
         mask = mask << 7;
         this.state |= mask;
+        return this.state;
+    }
+
+    public long slideNorthWest() {
+        this.state = this.state << 7;
         return this.state;
     }
 
