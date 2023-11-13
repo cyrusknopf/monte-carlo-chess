@@ -46,6 +46,11 @@ public class Bitboard {
         return this.state;
     }
     
+    public long slideEast() {
+        this.state = this.state << 1;
+        return this.state;
+    }
+
     public long slideEast(int rank, int file) {
         long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
         this.state = this.state ^ mask;
@@ -67,6 +72,11 @@ public class Bitboard {
         this.state = this.state ^ mask;
         mask = mask >> 8;
         this.state |= mask;
+        return this.state;
+    }
+
+    public long slideSouth() {
+        this.state = this.state >> 8;
         return this.state;
     }
 

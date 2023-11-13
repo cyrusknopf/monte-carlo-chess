@@ -35,6 +35,10 @@ public class Chess {
         this.black_game_board.state = black_pawns.state ^ black_horses.state;
     }
 
+    public long getGameState() {
+        return this.game_board.state;
+    }
+
 
 
 
@@ -44,16 +48,12 @@ public class Chess {
         game.white_pawns.initialiseBoard();
         game.black_pawns.initialiseBoard();
 
-        game.white_horses.initialiseBoard();
-        game.black_horses.initialiseBoard();
+        for (PawnBoard board : game.white_pawns.getAllBoards()) {
+            System.out.println(board.canPseudoLegalPush());
+        }
 
-        game.setGameState();
-        System.out.println(game.game_board);
-
-        game.setWhiteGameState();
-        System.out.println(game.white_game_board);
-
-        game.setBlackGameState();
-        System.out.println(game.black_game_board);
+        for (PawnBoard board : game.black_pawns.getAllBoards()) {
+            System.out.println(board.canPseudoLegalPush());
+        }   
     }
 }

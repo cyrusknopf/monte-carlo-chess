@@ -30,4 +30,33 @@ public class PawnBoard extends Bitboard {
         }
         return pawnBoards;
     }
+
+    public ArrayList<PawnBoard> canPseudoLegalPush() {
+        PawnBoard tempCurrentBoard = this;
+        PawnBoard tempMovedBoard = new PawnBoard(this.game, this.colour);
+        tempMovedBoard.state = this.state;
+        ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
+
+        if (this.colour) {
+            tempMovedBoard.slideNorth();
+        }
+        else {
+            tempMovedBoard.slideSouth();
+        }
+        
+        if ((tempCurrentBoard.state & tempMovedBoard.state) == 0) {
+            pseudoLegalMoves.add(tempMovedBoard);
+        }
+        return pseudoLegalMoves;
+    }
+
+    // public boolean canPseudoLegalCapture() {
+    //     long tempState = this.game.getGameState();
+    //     long madeMoveState;
+
+    //     if (this.colour = true) {
+    //         madeMoveState = this.slideEast();
+    //     }
+    // }
+
 }
