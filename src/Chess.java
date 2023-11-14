@@ -9,6 +9,9 @@ public class Chess {
     private HorseBoard white_horses;
     private HorseBoard black_horses;
 
+    private KingBoard white_king;
+    private KingBoard black_king;
+
 
 
     public Chess() {
@@ -21,6 +24,8 @@ public class Chess {
 
         this.white_horses = new HorseBoard(this, true);
         this.black_horses = new HorseBoard(this, false);
+
+        this.white_king = new KingBoard(this, true);
     }
 
     private void setGameState() {
@@ -53,15 +58,11 @@ public class Chess {
     public static void main(String[] args) {
         Chess game = new Chess();
 
-        game.white_pawns.initialiseBoard();
-        game.black_pawns.initialiseBoard();
-
-        for (PawnBoard board : game.white_pawns.getAllBoards()) {
-            System.out.println(board.getPseudoLegalPushes());
-        }
-
-        for (PawnBoard board : game.black_pawns.getAllBoards()) {
-            System.out.println(board.getPseudoLegalPushes());
-        }   
+        game.white_king.initialiseBoard();
+        game.white_king.slideNorth();
+        // for (KingBoard move : game.white_king.getPseudoLegalMoves()) {
+        //     // System.out.println(move);
+        // }
+        game.white_king.getPseudoLegalMoves();
     }
 }

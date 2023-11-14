@@ -44,7 +44,7 @@ public class PawnBoard extends Bitboard {
     }
 
 
-    public ArrayList<PawnBoard> getPseudoLegalPushes() {
+    private ArrayList<PawnBoard> getPseudoLegalPushes() {
         PawnBoard tempMovedBoard = this.copy();
         tempMovedBoard.state = this.state;
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
@@ -66,7 +66,7 @@ public class PawnBoard extends Bitboard {
         return pseudoLegalMoves;
     }
 
-    public ArrayList<PawnBoard> getPseudoLegalCaptures() {
+    private ArrayList<PawnBoard> getPseudoLegalCaptures() {
         PawnBoard tempMovedBoard;
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
 
@@ -75,8 +75,8 @@ public class PawnBoard extends Bitboard {
             tempMovedBoard.slideNorthEast();
             // Checks if there are no colisions with other white pieces
             if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
-                // Checks that there is at least one collision with a black piece ie a capture
-                if ((this.game.getGameState(!colour) & tempMovedBoard.state) > 0) {
+                // Checks that there is at most one collision with a black piece ie a capture
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) % 2 == 0) {
                     pseudoLegalMoves.add(tempMovedBoard);
                 }
             }
@@ -110,6 +110,14 @@ public class PawnBoard extends Bitboard {
                 }
             }
         }
+        return pseudoLegalMoves;
+    }
+
+
+    public ArrayList<PawnBoard> getPseudoLegalMoves() {
+        ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
+        pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
+        pseudoLegalMoves.addAll(this.getPseudoLegalCaptures());
         return pseudoLegalMoves;
     }
 

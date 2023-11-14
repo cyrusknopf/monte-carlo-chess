@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Bitboard {
     protected long state;
     protected long empty;
+    // protected String[] directionalMoves = {"slideNorth", "slideNorthEast", "slideEast", "slideSouthEast", "slideSouth", "slideSouthWest", "slideWest", "slideNorthWest"};
 
 
     public Bitboard(){}
@@ -65,11 +66,7 @@ public class Bitboard {
         return this.state;
     }
     
-    public long slideEast() {
-        this.state = this.state << 1;
-        return this.state;
-    }
-
+    
     public long slideEast(int rank, int file) {
         long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
         this.state = this.state ^ mask;
@@ -78,6 +75,10 @@ public class Bitboard {
         return this.state;
     }
     
+    public long slideEast() {
+        this.state = this.state << 1;
+        return this.state;
+    }
     public long slideSouthEast(int rank, int file) {
         long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
         this.state = this.state ^ mask;
@@ -122,6 +123,11 @@ public class Bitboard {
         this.state = this.state ^ mask;
         mask = mask >> 1;
         this.state |= mask;
+        return this.state;
+    }
+
+    public long slideWest() {
+        this.state = this.state >> 1;
         return this.state;
     }
 
