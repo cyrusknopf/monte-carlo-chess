@@ -76,7 +76,7 @@ public class PawnBoard extends Bitboard {
             // Checks if there are no colisions with other white pieces
             if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
                 // Checks that there is at most one collision with a black piece ie a capture
-                if ((this.game.getGameState(!colour) & tempMovedBoard.state) % 2 == 0) {
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) > 0) {
                     pseudoLegalMoves.add(tempMovedBoard);
                 }
             }
