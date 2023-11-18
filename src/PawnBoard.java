@@ -116,8 +116,16 @@ public class PawnBoard extends Bitboard {
 
     public ArrayList<PawnBoard> getPseudoLegalMoves() {
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
-        pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
-        pseudoLegalMoves.addAll(this.getPseudoLegalCaptures());
+        ArrayList<PawnBoard> pushes = this.getPseudoLegalPushes();
+        ArrayList<PawnBoard> captures = this.getPseudoLegalCaptures();
+        if (pushes.size() != 0) {
+            pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
+        }
+        if (captures.size() != 1) {
+            System.out.println(captures.size());
+            System.out.println("Captures entered");
+            pseudoLegalMoves.addAll(this.getPseudoLegalCaptures());
+        }
         return pseudoLegalMoves;
     }
 

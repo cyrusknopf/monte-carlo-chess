@@ -58,11 +58,13 @@ public class Chess {
     public static void main(String[] args) {
         Chess game = new Chess();
 
-        game.white_king.initialiseBoard();
-        game.white_king.slideNorth();
-        // for (KingBoard move : game.white_king.getPseudoLegalMoves()) {
-        //     // System.out.println(move);
-        // }
-        game.white_king.getPseudoLegalMoves();
+        game.white_pawns.initialiseBoard();
+        System.out.println(game.white_pawns);
+        for (PawnBoard piece : game.white_pawns.getAllBoards()) {
+            for (PawnBoard move : piece.getPseudoLegalMoves()) {
+                System.out.println(move);
+            }
+        }
+
     }
 }
