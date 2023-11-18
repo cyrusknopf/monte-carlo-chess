@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class KingBoard extends Bitboard {
     private long init = 0x8L;
-    private Chess game;
-    private boolean colour;
+    final private Chess game;
+    final private boolean colour;
 
     public KingBoard(Chess game, boolean colour) {
         this.game = game;
@@ -23,7 +23,7 @@ public class KingBoard extends Bitboard {
 
     public ArrayList<KingBoard> getPseudoLegalMoves() {
         KingBoard[] tempMoveList = new KingBoard[8];
-        ArrayList<KingBoard> pseudoLegalMoves = new ArrayList<KingBoard>();
+        ArrayList<KingBoard> pseudoLegalMoves = new ArrayList<>();
         
         for (int i = 0; i < tempMoveList.length; i++) {
             tempMoveList[i] = new KingBoard(this);
