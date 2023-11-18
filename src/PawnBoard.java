@@ -121,7 +121,7 @@ public class PawnBoard extends Bitboard {
         if (pushes.size() != 0) {
             pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
         }
-        if (captures.size() != 1) {
+        if (captures.size() != 0) {
             System.out.println(captures.size());
             System.out.println("Captures entered");
             pseudoLegalMoves.addAll(this.getPseudoLegalCaptures());
