@@ -1,3 +1,7 @@
+package montecarlochess;
+
+import montecarlochess.bitboards.*;
+
 public class Chess {
     private Bitboard game_board;
     private Bitboard white_game_board;
@@ -11,8 +15,6 @@ public class Chess {
 
     private KingBoard white_king;
     private KingBoard black_king;
-
-
 
     public Chess() {
         this.game_board = new Bitboard();

@@ -1,9 +1,10 @@
+package montecarlochess.bitboards;
+
 import java.util.ArrayList;
 
 public class Bitboard {
-    protected long state;
-    protected long empty;
-    // protected String[] directionalMoves = {"slideNorth", "slideNorthEast", "slideEast", "slideSouthEast", "slideSouth", "slideSouthWest", "slideWest", "slideNorthWest"};
+    public long state;
+    public long empty;
 
 
     public Bitboard(){}

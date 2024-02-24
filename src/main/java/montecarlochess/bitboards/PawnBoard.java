@@ -1,4 +1,7 @@
+package montecarlochess.bitboards;
+
 import java.util.ArrayList;
+import montecarlochess.Chess;
 
 public class PawnBoard extends Bitboard {
     private long init = 0x000000000000FF00L;

@@ -1,3 +1,7 @@
+package montecarlochess.bitboards;
+
+import montecarlochess.Chess;
+
 public class HorseBoard extends Bitboard{
     private long init = 0x42L;
     private Chess game;

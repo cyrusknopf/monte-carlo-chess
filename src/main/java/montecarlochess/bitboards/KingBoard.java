@@ -1,3 +1,6 @@
+package montecarlochess.bitboards;
+
+import montecarlochess.Chess;
 import java.util.ArrayList;
 
 public class KingBoard extends Bitboard {
