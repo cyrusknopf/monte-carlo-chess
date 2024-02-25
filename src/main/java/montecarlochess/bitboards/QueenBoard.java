@@ -1,3 +1,5 @@
+package montecarlochess.bitboards;
+
 public class QueenBoard extends Bitboard {
     private long init = 0x10L;
 

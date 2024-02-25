@@ -1,3 +1,4 @@
+package montecarlochess.bitboards;
 public class BishopBoard extends Bitboard {
     private long init = 0x24L;
 

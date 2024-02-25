@@ -1,3 +1,4 @@
+package montecarlochess.bitboards;
 public class CastleBoard extends Bitboard{
     private long init = 0x81L;
 
