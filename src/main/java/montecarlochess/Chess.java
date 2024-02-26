@@ -59,12 +59,9 @@ public class Chess {
 
     public static void main(String[] args) {
         Chess game = new Chess();
-
-        game.white_king.initialiseBoard();
-        game.white_king.slideNorth();
-        // for (KingBoard move : game.white_king.getPseudoLegalMoves()) {
-        //     // System.out.println(move);
-        // }
-        game.white_king.getPseudoLegalMoves();
-    }
+        game.white_pawns.initialiseBoard();
+        for (PawnBoard board : game.white_pawns.getPseudoLegalMoves()) {
+            System.out.println(board);
+        }
+            }
 }

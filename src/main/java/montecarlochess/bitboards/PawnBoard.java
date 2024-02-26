@@ -79,7 +79,7 @@ public class PawnBoard extends Bitboard {
             // Checks if there are no colisions with other white pieces
             if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
                 // Checks that there is at most one collision with a black piece ie a capture
-                if ((this.game.getGameState(!colour) & tempMovedBoard.state) % 2 == 0) {
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) != 0) {
                     pseudoLegalMoves.add(tempMovedBoard);
                 }
             }
@@ -88,7 +88,7 @@ public class PawnBoard extends Bitboard {
             // Checks if there are no colisions with other white pieces
             if ((this.game.getGameState(colour) & tempMovedBoard.state) == 0) {
                 // Checks that there is at least one collision with a black piece ie a capture
-                if ((this.game.getGameState(!colour) & tempMovedBoard.state) > 0) {
+                if ((this.game.getGameState(!colour) & tempMovedBoard.state) != 0) {
                     pseudoLegalMoves.add(tempMovedBoard);
                 }
             }
@@ -117,12 +117,20 @@ public class PawnBoard extends Bitboard {
     }
 
 
-    // I don't think this checks for all pieces? I can't see where
-    // it uses the getAllBoards method. Maybe need implement.
     public ArrayList<PawnBoard> getPseudoLegalMoves() {
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
-        pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
-        pseudoLegalMoves.addAll(this.getPseudoLegalCaptures());
+        for (PawnBoard pawnBoard : this.getAllBoards()) {
+            // System.out.println("Printing Pushes:");
+            pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalPushes());
+            // for (PawnBoard b : pawnBoard.getPseudoLegalPushes()) {
+                // System.out.println(b);
+            // }
+            // System.out.println("Printing Captures");
+            pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalCaptures());
+            // for (PawnBoard b : pawnBoard.getPseudoLegalCaptures()) {
+                // System.out.println(b);
+            // }
+        }
         return pseudoLegalMoves;
     }
 
