@@ -1,8 +1,8 @@
 package montecarlochess.bitboards;
 
-import java.util.ArrayList;
 import montecarlochess.Chess;
 
+import java.util.ArrayList;
 public class PawnBoard extends Bitboard {
     private long init = 0x000000000000FF00L;
     private Chess game;
@@ -117,6 +117,8 @@ public class PawnBoard extends Bitboard {
     }
 
 
+    // I don't think this checks for all pieces? I can't see where
+    // it uses the getAllBoards method. Maybe need implement.
     public ArrayList<PawnBoard> getPseudoLegalMoves() {
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
         pseudoLegalMoves.addAll(this.getPseudoLegalPushes());
