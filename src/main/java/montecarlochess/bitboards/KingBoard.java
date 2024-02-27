@@ -58,10 +58,12 @@ public class KingBoard extends Bitboard {
             if ((move.state & game.getGameState(this.colour)) != 0) {
                 continue;
             }
+            // Otherwise, move is pseudo legal
+            pseudoLegalMoves.add(move);
             // I can't remember what this does but I think it works
-             if ((move.state & game.getGameState(!this.colour)) % 2 == 0) {
-                pseudoLegalMoves.add(move);
-            }
+             // if ((move.state & game.getGameState(!this.colour)) % 2 == 0) {
+                // pseudoLegalMoves.add(move);
+            // }
         }
         
         
@@ -69,7 +71,7 @@ public class KingBoard extends Bitboard {
     }
 
     // TODO Can we add this to the BitBoard class instead of implementing it in every
-    // subclass
+    // subclass?
     public long initialiseBoard() {
         if (!this.colour) {
             super.state = Long.reverse(init);
