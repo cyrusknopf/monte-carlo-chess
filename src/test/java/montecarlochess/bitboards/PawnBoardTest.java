@@ -13,7 +13,7 @@ public class PawnBoardTest {
 
     @BeforeEach
     public void setUp() {
-        game = new Chess(); // Assuming Chess class has a default constructor
+        game = new Chess();
     }
 
     @Test

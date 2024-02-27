@@ -41,14 +41,11 @@ public class HorseBoard extends Bitboard{
         return hoarseBoards;
     }
 
-    
-    // Need to implement checking legal moves for both horses using above method
-    public ArrayList<HorseBoard> getPseudoLegalMoves() {
-        ArrayList<HorseBoard> pseudoLegalMoves = new ArrayList<>();
+    public HorseBoard[] makeMoves() {
+        
         // 8 Possible moves so initialise array
         HorseBoard[] tempMoveList = new HorseBoard[8];
-        
-        // Initialise each move as a HorseBoard with copy constructor
+
         for (int i = 0; i < tempMoveList.length; i++) {
             tempMoveList[i] = new HorseBoard(this);
         }
@@ -77,7 +74,32 @@ public class HorseBoard extends Bitboard{
 
         tempMoveList[7].slideNorth();
         tempMoveList[7].slideNorthWest();
-        
-        return null;
+
+        return tempMoveList;
+    }
+    
+    /* 
+    NOTE: There may be some confusion here later when refering to `this.colour`
+    in the internal loop, maybe it should be `horse.colour`
+    */
+    
+    // Need to implement checking legal moves for both horses using above method
+    public ArrayList<HorseBoard> getPseudoLegalMoves() {
+        ArrayList<HorseBoard> pseudoLegalMoves = new ArrayList<>();
+        // For each horse...
+        for (HorseBoard horse : this.getAllBoards()) {
+            HorseBoard[] moves = horse.makeMoves();
+            // For each move...
+            for (HorseBoard move : moves) {
+                // If the horse does not move to a square with any piece of its
+                // own colour, add the move to pseudo legals.
+                if ((move.state & game.getGameState(this.colour)) == 0){
+                    pseudoLegalMoves.add(move);
+                }
+                
+            }
+            
+        }
+        return pseudoLegalMoves;
     }
 }
