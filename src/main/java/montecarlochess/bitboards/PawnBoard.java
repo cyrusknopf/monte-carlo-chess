@@ -117,19 +117,14 @@ public class PawnBoard extends Bitboard {
     }
 
 
+    // Get the pseudo legal moves for all pawns
     public ArrayList<PawnBoard> getPseudoLegalMoves() {
+        // Stores moves
         ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
+        // Iterates through all pawns, getting the legal moves
         for (PawnBoard pawnBoard : this.getAllBoards()) {
-            // System.out.println("Printing Pushes:");
             pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalPushes());
-            // for (PawnBoard b : pawnBoard.getPseudoLegalPushes()) {
-                // System.out.println(b);
-            // }
-            // System.out.println("Printing Captures");
             pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalCaptures());
-            // for (PawnBoard b : pawnBoard.getPseudoLegalCaptures()) {
-                // System.out.println(b);
-            // }
         }
         return pseudoLegalMoves;
     }
