@@ -59,8 +59,9 @@ public class Chess {
 
     public static void main(String[] args) {
         Chess game = new Chess();
-        game.white_pawns.initialiseBoard();
-        for (PawnBoard board : game.white_pawns.getPseudoLegalMoves()) {
+        // game.white_horses.initialiseBoard();
+        game.white_horses.state = (long) Math.pow(2, 36);
+        for (HorseBoard board : game.white_horses.getPseudoLegalMoves()) {
             System.out.println(board);
         }
             }
