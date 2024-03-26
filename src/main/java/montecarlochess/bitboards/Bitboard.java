@@ -37,13 +37,33 @@ public class Bitboard {
         return longs;
     }
 
+    /*
+    Finds the file of a piece from a bitboard. Should only be called
+    on a bitboard containing a single piece.
+
+    @return the file of the piece, from 1 to 8
+    */
     public int getFile() {
+        /*
+        Since file is independent of rank, we essentially
+        shift the piece into rank 1 for simplicity
+        */
         long tempState = state;
         while (tempState > 128) {
             tempState = tempState >> 8;
         }
-        
-        int file = (int) (8 - (Math.log(tempState) / Math.log(2)));
+
+        /*
+        Find the log2 of the state. Since the state is guaranteed
+        to be a binary number with a single 1, this is correct.
+        */
+        int exp = 0;
+        while ((tempState & 0b1) == 0) {
+            tempState = tempState >> 1;
+            exp++;
+        }
+
+        int file = 8 - exp;
         return file;
     }
 
