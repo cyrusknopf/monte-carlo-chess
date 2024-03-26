@@ -19,7 +19,6 @@ public class Bitboard {
         return new Bitboard(this);
     }
 
-
     public long getBoard() {
         return this.state;
     }
@@ -38,27 +37,13 @@ public class Bitboard {
         return longs;
     }
 
-
-
-    public long slideNorth(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask << 8;
-        this.state |= mask;
-        return this.state;
+    public int getFile() {
+        int file = (int) (8 - (Math.log(this.state) / Math.log(2)));
+        return file;
     }
 
     public long slideNorth() {
         this.state = this.state << 8;
-        return this.state;
-    }
-
-
-    public long slideNorthEast(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask << 9;
-        this.state |= mask;
         return this.state;
     }
 
@@ -67,24 +52,8 @@ public class Bitboard {
         return this.state;
     }
     
-    
-    public long slideEast(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask << 1;
-        this.state |= mask;
-        return this.state;
-    }
-    
     public long slideEast() {
         this.state = this.state << 1;
-        return this.state;
-    }
-    public long slideSouthEast(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask >> 9;
-        this.state |= mask;
         return this.state;
     }
 
@@ -93,24 +62,8 @@ public class Bitboard {
         return this.state;
     }
 
-    public long slideSouth(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask >> 8;
-        this.state |= mask;
-        return this.state;
-    }
-
     public long slideSouth() {
         this.state = this.state >> 8;
-        return this.state;
-    }
-
-    public long slideSouthWest(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask >> 7;
-        this.state |= mask;
         return this.state;
     }
 
@@ -119,24 +72,8 @@ public class Bitboard {
         return this.state;
     }
     
-    public long slideWest(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask >> 1;
-        this.state |= mask;
-        return this.state;
-    }
-
     public long slideWest() {
         this.state = this.state >> 1;
-        return this.state;
-    }
-
-    public long slideNorthWest(int rank, int file) {
-        long mask = 1L << (rank + file*8); // 1 = rank 1*8 = file
-        this.state = this.state ^ mask;
-        mask = mask << 7;
-        this.state |= mask;
         return this.state;
     }
 
