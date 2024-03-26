@@ -38,7 +38,12 @@ public class Bitboard {
     }
 
     public int getFile() {
-        int file = (int) (8 - (Math.log(this.state) / Math.log(2)));
+        long tempState = state;
+        while (tempState > 128) {
+            tempState = tempState >> 8;
+        }
+        
+        int file = (int) (8 - (Math.log(tempState) / Math.log(2)));
         return file;
     }
 
