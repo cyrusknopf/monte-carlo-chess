@@ -57,16 +57,52 @@ public class HorseBoardTest {
 
         long correctAllMovesState = 0x0000142200221400L;
 
-        // Board should look like this:
-        // 0 0 0 0 0 0 0 0 |8
-        // 0 0 0 0 0 0 0 0 |7
-        // 0 0 0 1 0 1 0 0 |6
-        // 0 0 1 0 0 0 1 0 |5
-        // 0 0 0 0 0 0 0 0 |4
-        // 0 0 1 0 0 0 1 0 |3
-        // 0 0 0 1 0 1 0 0 |2
-        // 0 0 0 0 0 0 0 0 |1
+        // The board state which contains every legal move should be:
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 1 0 1 0 0
+        // 0 0 1 0 0 0 1 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 1 0 0 0 1 0
+        // 0 0 0 1 0 1 0 0
+        // 0 0 0 0 0 0 0 0
 
         assertEquals(correctAllMovesState, allMovesState);
     }
+
+    @Test
+    public void pseudoLegalMovesFromFile8() {
+        HorseBoard hb = new HorseBoard(game, false);
+        hb.state = 0x0000010000000000L;
+
+        ArrayList<HorseBoard> moves = hb.getPseudoLegalMoves();
+
+        assertEquals(4, moves.size());
+
+        long allMovesState = 0;
+
+        for (HorseBoard move : moves) {
+            allMovesState |= move.state;
+        }
+
+        HorseBoard temp = new HorseBoard(game, false);
+        temp.state = allMovesState;
+        System.out.println(temp);
+
+        // Board should look like this:
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+
+        long correctAllMovesState = 0x0204000402000000L;
+
+        assertEquals(correctAllMovesState, allMovesState);
+
+    }
+
 }
