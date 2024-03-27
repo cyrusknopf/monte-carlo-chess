@@ -105,4 +105,6 @@ public class HorseBoardTest {
 
     }
 
+    // TODO add tests for file 1, top and bottom ranks with file 1 and 8
+
 }
