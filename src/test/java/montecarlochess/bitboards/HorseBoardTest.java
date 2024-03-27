@@ -57,6 +57,7 @@ public class HorseBoardTest {
 
         long correctAllMovesState = 0x0000142200221400L;
 
+        // Board should look like this:
         // 0 0 0 0 0 0 0 0 |8
         // 0 0 0 0 0 0 0 0 |7
         // 0 0 0 1 0 1 0 0 |6

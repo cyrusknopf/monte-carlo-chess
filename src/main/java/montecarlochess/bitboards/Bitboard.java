@@ -23,7 +23,11 @@ public class Bitboard {
         return this.state;
     }
 
-    // Returns a list of bitboard longs that contain each piece of the board.
+    /*
+     * Used to get boards of each isolated piece
+     *
+     * @return ArrayList of board states each with a single piece
+     */
     public ArrayList<Long> getAllPieceStates() {
         long initState = this.state;
         ArrayList<Long> longs = new ArrayList<>();
@@ -43,7 +47,7 @@ public class Bitboard {
      */
     public int getFile() {
         /*
-         * Since file is independent of rank, we essentially
+         * Since file is independent of rank, we
          * shift the piece into rank 1 for simplicity
          */
         long tempState = state;
