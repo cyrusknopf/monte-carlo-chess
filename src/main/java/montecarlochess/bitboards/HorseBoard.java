@@ -112,13 +112,6 @@ public class HorseBoard extends Bitboard {
                     continue;
                 }
 
-                HorseBoard res = new HorseBoard(this);
-                res.state = res.state | move.state;
-
-                System.out.println("Adding move:");
-                System.out.println(res);
-                System.out.println("\n\n");
-
                 pseudoLegalMoves.add(move);
             }
         }
