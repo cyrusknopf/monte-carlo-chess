@@ -4,7 +4,7 @@ import montecarlochess.Chess;
 
 import java.util.ArrayList;
 
-public class HorseBoard extends Bitboard{
+public class HorseBoard extends Bitboard {
     private long init = 0x42L;
     private Chess game;
     private boolean colour;
@@ -16,9 +16,9 @@ public class HorseBoard extends Bitboard{
     }
 
     public HorseBoard(HorseBoard other) {
-        this.init = other.init;
         this.game = other.game;
         this.colour = other.colour;
+        this.state = other.state;
     }
 
     public long initialiseBoard() {
@@ -37,80 +37,92 @@ public class HorseBoard extends Bitboard{
             HorseBoard currentBoard = new HorseBoard(this.game, this.colour);
             currentBoard.state = state;
             hoarseBoards.add(currentBoard);
-            System.out.println("OG:");
-            System.out.println(currentBoard);
         }
         return hoarseBoards;
     }
 
-    public HorseBoard[] makeMoves() {
-        
+    public ArrayList<HorseBoard> makeMoves() {
+
         // 8 Possible moves so initialise array
-        HorseBoard[] tempMoveList = new HorseBoard[8];
-        for (int i = 0; i < tempMoveList.length; i++) {
-            tempMoveList[i] = new HorseBoard(this);
-            tempMoveList[i].state = this.state;
+        ArrayList<HorseBoard> tempMoveList = new ArrayList<HorseBoard>();
+
+        if (this.getFile() < 8) {
+            HorseBoard hb1 = new HorseBoard(this);
+            hb1.slideNorth();
+            hb1.slideNorthEast();
+            tempMoveList.add(hb1);
+
+            HorseBoard hb2 = new HorseBoard(this);
+            hb2.slideSouth();
+            hb2.slideSouthEast();
+            tempMoveList.add(hb2);
         }
 
-        // Carry out the moves, done in clockwise direction
-        tempMoveList[0].slideNorth();
-        tempMoveList[0].slideNorthEast();
+        if (this.getFile() < 7) {
+            HorseBoard hb1 = new HorseBoard(this);
+            hb1.slideEast();
+            hb1.slideNorthEast();
+            tempMoveList.add(hb1);
 
-        tempMoveList[1].slideEast();
-        tempMoveList[1].slideNorthEast();
+            HorseBoard hb2 = new HorseBoard(this);
+            hb2.slideEast();
+            hb2.slideSouthEast();
+            tempMoveList.add(hb2);
+        }
 
-        tempMoveList[2].slideEast();
-        tempMoveList[2].slideSouthEast();
+        if (this.getFile() > 1) {
+            HorseBoard hb1 = new HorseBoard(this);
+            hb1.slideSouth();
+            hb1.slideSouthWest();
+            tempMoveList.add(hb1);
 
-        tempMoveList[3].slideSouth();
-        tempMoveList[3].slideSouthEast();       
+            HorseBoard hb2 = new HorseBoard(this);
+            hb2.slideNorth();
+            hb2.slideNorthWest();
+            tempMoveList.add(hb2);
+        }
 
-        tempMoveList[4].slideSouth();
-        tempMoveList[4].slideSouthWest();
+        if (this.getFile() > 2) {
+            HorseBoard hb1 = new HorseBoard(this);
+            hb1.slideWest();
+            hb1.slideSouthWest();
+            tempMoveList.add(hb1);
 
-        tempMoveList[5].slideWest();
-        tempMoveList[5].slideSouthWest();
-
-        tempMoveList[6].slideWest();
-        tempMoveList[6].slideNorthWest();
-
-        tempMoveList[7].slideNorth();
-        tempMoveList[7].slideNorthWest();
+            HorseBoard hb2 = new HorseBoard(this);
+            hb2.slideWest();
+            hb2.slideNorthWest();
+            tempMoveList.add(hb2);
+        }
 
         return tempMoveList;
     }
-    
-    /* 
-    NOTE: There may be some confusion here later when refering to `this.colour`
-    in the internal loop, maybe it should be `horse.colour`
-    */
 
-    // TODO: Doesn't work, going over mutliple lines
-
-    // Need to implement checking legal moves for both horses using above method
     public ArrayList<HorseBoard> getPseudoLegalMoves() {
         ArrayList<HorseBoard> pseudoLegalMoves = new ArrayList<>();
         // For each horse...
         for (HorseBoard horse : this.getAllBoards()) {
-            HorseBoard[] moves = horse.makeMoves();
-            // For each move...
+            ArrayList<HorseBoard> moves = horse.makeMoves();
+            // For each move that horse can make...
             for (HorseBoard move : moves) {
-                System.out.println(move);
-                // If `state==0` it means that the move sent the piece off of the board
                 if (move.state == 0) {
-                    System.out.println("Not adding, OOB");
                     continue;
                 }
-                // If the horse does not move to a square with any piece of its
-                // own colour, add the move to pseudo legals.
-                if ((move.state & game.getGameState(this.colour)) != 0) {
-                    System.out.println("Not adding, collision");
+
+                if ((move.state & game.getGameState(horse.colour)) != 0) {
                     continue;
                 }
+
+                HorseBoard res = new HorseBoard(this);
+                res.state = res.state | move.state;
+
+                System.out.println("Adding move:");
+                System.out.println(res);
+                System.out.println("\n\n");
+
                 pseudoLegalMoves.add(move);
             }
-            
         }
         return pseudoLegalMoves;
     }
+
 }
