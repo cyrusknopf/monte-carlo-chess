@@ -41,81 +41,73 @@ public class HorseBoard extends Bitboard {
         return hoarseBoards;
     }
 
-    public ArrayList<HorseBoard> makeMoves() {
+    public long[] makeMoves(long state) {
+        long[] moves = new long[8];
 
-        // 8 Possible moves so initialise array
-        ArrayList<HorseBoard> tempMoveList = new ArrayList<HorseBoard>();
+        int file = getFile(state);
 
-        if (this.getFile() < 8) {
-            HorseBoard hb1 = new HorseBoard(this);
-            hb1.slideNorth();
-            hb1.slideNorthEast();
-            tempMoveList.add(hb1);
+        if (file < 8) {
+            moves[0] = state;
+            moves[0] <<= 8; // Move north
+            moves[0] <<= 7; // Move north east
 
-            HorseBoard hb2 = new HorseBoard(this);
-            hb2.slideSouth();
-            hb2.slideSouthEast();
-            tempMoveList.add(hb2);
+            moves[1] = state;
+            moves[1] >>= 8; // Move south
+            moves[1] >>= 9; // Move south east
         }
 
-        if (this.getFile() < 7) {
-            HorseBoard hb1 = new HorseBoard(this);
-            hb1.slideEast();
-            hb1.slideNorthEast();
-            tempMoveList.add(hb1);
+        if (file < 7) {
+            moves[2] = state;
+            moves[2] >>= 1; // Move east
+            moves[2] <<= 7; // Move north east
 
-            HorseBoard hb2 = new HorseBoard(this);
-            hb2.slideEast();
-            hb2.slideSouthEast();
-            tempMoveList.add(hb2);
+            moves[3] = state;
+            moves[3] >>= 1; // Move east
+            moves[3] >>= 9; // Move south east
         }
 
-        if (this.getFile() > 1) {
-            HorseBoard hb1 = new HorseBoard(this);
-            hb1.slideSouth();
-            hb1.slideSouthWest();
-            tempMoveList.add(hb1);
+        if (file > 1) {
+            moves[4] = state;
+            moves[4] >>= 8; // Move south
+            moves[4] >>= 7; // Move south west
 
-            HorseBoard hb2 = new HorseBoard(this);
-            hb2.slideNorth();
-            hb2.slideNorthWest();
-            tempMoveList.add(hb2);
+            moves[5] = state;
+            moves[5] <<= 8; // Move north
+            moves[5] <<= 9; // Move north west
         }
 
-        if (this.getFile() > 2) {
-            HorseBoard hb1 = new HorseBoard(this);
-            hb1.slideWest();
-            hb1.slideSouthWest();
-            tempMoveList.add(hb1);
+        if (file > 2) {
+            moves[6] = state;
+            moves[6] <<= 1; // Move west
+            moves[6] >>= 7; // Move south west
 
-            HorseBoard hb2 = new HorseBoard(this);
-            hb2.slideWest();
-            hb2.slideNorthWest();
-            tempMoveList.add(hb2);
+            moves[7] = state;
+            moves[7] <<= 1; // Move west
+            moves[7] <<= 9; // Move north west
         }
 
-        return tempMoveList;
+        return moves;
+
     }
 
-    public ArrayList<HorseBoard> getPseudoLegalMoves() {
-        ArrayList<HorseBoard> pseudoLegalMoves = new ArrayList<>();
-        // For each horse...
-        for (HorseBoard horse : this.getAllBoards()) {
-            ArrayList<HorseBoard> moves = horse.makeMoves();
-            // For each move that horse can make...
-            for (HorseBoard move : moves) {
-                if (move.state == 0) {
+    public ArrayList<Long> getLegalMoves() {
+        ArrayList<Long> moves = new ArrayList<>();
+        for (long piece : this.getAllPieceStates()) {
+            for (long move : makeMoves(piece)) {
+                if (move == 0) {
                     continue;
                 }
 
-                if ((move.state & game.getGameState(horse.colour)) != 0) {
+                if ((move & game.getGameState(this.colour)) != 0) {
                     continue;
                 }
 
-                pseudoLegalMoves.add(move);
+                moves.add(move);
             }
+
         }
-        return pseudoLegalMoves;
+
+        return moves;
     }
 
 }

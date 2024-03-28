@@ -45,7 +45,7 @@ public class Bitboard {
      * 
      * @return the file of the piece, from 1 to 8
      */
-    public int getFile() {
+    public static int getFile(long state) {
         /*
          * Since file is independent of rank, we
          * shift the piece into rank 1 for simplicity

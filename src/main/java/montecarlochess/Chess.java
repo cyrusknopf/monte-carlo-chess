@@ -20,7 +20,7 @@ public class Chess {
         this.game_board = new Bitboard();
         this.white_game_board = new Bitboard();
         this.black_game_board = new Bitboard();
-        
+
         this.white_pawns = new PawnBoard(this, true);
         this.black_pawns = new PawnBoard(this, false);
 
@@ -49,20 +49,9 @@ public class Chess {
     public long getGameState(boolean colour) {
         if (colour) {
             return white_pawns.state ^ white_horses.state;
-        }
-        else {
+        } else {
             return black_pawns.state ^ black_horses.state;
         }
     }
 
-
-
-    public static void main(String[] args) {
-        Chess game = new Chess();
-        // game.white_horses.initialiseBoard();
-        game.white_horses.state = (long) Math.pow(2, 36);
-        for (HorseBoard board : game.white_horses.getPseudoLegalMoves()) {
-            System.out.println(board);
-        }
-            }
 }

@@ -41,18 +41,40 @@ public class HorseBoardTest {
     }
 
     @Test
-    public void pseudoLegalMovesFromCentre() {
-        HorseBoard hb = new HorseBoard(game, false);
-        hb.state = 0x0000000008000000;
+    public void legalMovesFromCentre() {
+        HorseBoard horse = new HorseBoard(game, false);
+        horse.state = 0x0000000008000000;
 
-        ArrayList<HorseBoard> moves = hb.getPseudoLegalMoves();
+        ArrayList<Long> moves = horse.getLegalMoves();
 
         assertEquals(8, moves.size());
 
         long allMovesState = 0;
 
-        for (HorseBoard move : moves) {
-            allMovesState |= move.state;
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        horse.state = allMovesState;
+
+        long correctAllMovesState = 0x0000142200221400L;
+
+        assertEquals(correctAllMovesState, allMovesState);
+    }
+
+    @Test
+    public void pseudoLegalMovesFromCentre() {
+        HorseBoard hb = new HorseBoard(game, false);
+        hb.state = 0x0000000008000000;
+
+        ArrayList<Long> moves = hb.getLegalMoves();
+
+        assertEquals(8, moves.size());
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
         }
 
         long correctAllMovesState = 0x0000142200221400L;
@@ -71,23 +93,22 @@ public class HorseBoardTest {
     }
 
     @Test
-    public void pseudoLegalMovesFromFile8() {
-        HorseBoard hb = new HorseBoard(game, false);
-        hb.state = 0x0000010000000000L;
+    public void pseudoLegalMovesFile8() {
+        HorseBoard horse = new HorseBoard(game, false);
+        horse.state = 0x0000010000000000L;
 
-        ArrayList<HorseBoard> moves = hb.getPseudoLegalMoves();
+        ArrayList<Long> moves = horse.getLegalMoves();
 
         assertEquals(4, moves.size());
 
         long allMovesState = 0;
 
-        for (HorseBoard move : moves) {
-            allMovesState |= move.state;
+        for (long move : moves) {
+            allMovesState |= move;
         }
 
         HorseBoard temp = new HorseBoard(game, false);
         temp.state = allMovesState;
-        System.out.println(temp);
 
         // Board should look like this:
         // 0 0 0 0 0 0 1 0
