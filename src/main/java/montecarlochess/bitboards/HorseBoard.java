@@ -90,14 +90,23 @@ public class HorseBoard extends Bitboard {
 
     }
 
-    public ArrayList<Long> getLegalMoves() {
+    public ArrayList<Long> getPseudoLegalMoves() {
         ArrayList<Long> moves = new ArrayList<>();
         for (long piece : this.getAllPieceStates()) {
             for (long move : makeMoves(piece)) {
+                /*
+                 * If the move is 0 it means either:
+                 * 1. The piece moved off the board
+                 * 2. The move was never updated after initialisating
+                 * in the array (file check)
+                 *
+                 * In either case, don't add
+                 */
                 if (move == 0) {
                     continue;
                 }
 
+                // Check there are no collisions with own piece
                 if ((move & game.getGameState(this.colour)) != 0) {
                     continue;
                 }

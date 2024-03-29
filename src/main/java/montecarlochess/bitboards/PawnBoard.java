@@ -3,6 +3,7 @@ package montecarlochess.bitboards;
 import montecarlochess.Chess;
 
 import java.util.ArrayList;
+
 public class PawnBoard extends Bitboard {
     private long init = 0x000000000000FF00L;
     private Chess game;
@@ -38,14 +39,13 @@ public class PawnBoard extends Bitboard {
     // Returns an array of boards containing just each piece of the board.
     public ArrayList<PawnBoard> getAllBoards() {
         ArrayList<PawnBoard> pawnBoards = new ArrayList<>();
-        for (long state: this.getAllPieceStates()) {
+        for (long state : this.getAllPieceStates()) {
             PawnBoard currentBoard = new PawnBoard(this.game, this.colour);
             currentBoard.state = state;
             pawnBoards.add(currentBoard);
         }
         return pawnBoards;
     }
-
 
     private ArrayList<PawnBoard> getPseudoLegalPushes() {
         PawnBoard tempMovedBoard = this.copy();
@@ -58,8 +58,7 @@ public class PawnBoard extends Bitboard {
             if ((this.game.getGameState() & tempMovedBoard.state) == 0) {
                 pseudoLegalMoves.add(tempMovedBoard);
             }
-        }
-        else {
+        } else {
             tempMovedBoard.slideSouth();
             // Checking for collisions
             if ((this.game.getGameState() & tempMovedBoard.state) == 0) {
@@ -93,8 +92,7 @@ public class PawnBoard extends Bitboard {
                 }
             }
 
-        }
-        else {
+        } else {
             tempMovedBoard = this.copy();
             tempMovedBoard.slideSouthEast();
             // Checks there are no collisions wiht other black pieces
@@ -115,7 +113,6 @@ public class PawnBoard extends Bitboard {
         }
         return pseudoLegalMoves;
     }
-
 
     // Get the pseudo legal moves for all pawns
     public ArrayList<PawnBoard> getPseudoLegalMoves() {

@@ -1,3 +1,4 @@
+
 package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
@@ -45,7 +46,7 @@ public class HorseBoardTest {
         HorseBoard horse = new HorseBoard(game, false);
         horse.state = 0x0000000008000000;
 
-        ArrayList<Long> moves = horse.getLegalMoves();
+        ArrayList<Long> moves = horse.getPseudoLegalMoves();
 
         assertEquals(8, moves.size());
 
@@ -67,7 +68,7 @@ public class HorseBoardTest {
         HorseBoard hb = new HorseBoard(game, false);
         hb.state = 0x0000000008000000;
 
-        ArrayList<Long> moves = hb.getLegalMoves();
+        ArrayList<Long> moves = hb.getPseudoLegalMoves();
 
         assertEquals(8, moves.size());
 
@@ -97,7 +98,7 @@ public class HorseBoardTest {
         HorseBoard horse = new HorseBoard(game, false);
         horse.state = 0x0000010000000000L;
 
-        ArrayList<Long> moves = horse.getLegalMoves();
+        ArrayList<Long> moves = horse.getPseudoLegalMoves();
 
         assertEquals(4, moves.size());
 
