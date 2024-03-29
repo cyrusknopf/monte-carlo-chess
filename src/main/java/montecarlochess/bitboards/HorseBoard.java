@@ -30,17 +30,6 @@ public class HorseBoard extends Bitboard {
         return super.state;
     }
 
-    // Returns an array of boards containg just one of the knights
-    public ArrayList<HorseBoard> getAllBoards() {
-        ArrayList<HorseBoard> hoarseBoards = new ArrayList<>();
-        for (long state : this.getAllPieceStates()) {
-            HorseBoard currentBoard = new HorseBoard(this.game, this.colour);
-            currentBoard.state = state;
-            hoarseBoards.add(currentBoard);
-        }
-        return hoarseBoards;
-    }
-
     public long[] makeMoves(long state) {
         long[] moves = new long[8];
 
