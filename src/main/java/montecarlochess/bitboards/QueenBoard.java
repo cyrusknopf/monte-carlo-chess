@@ -28,87 +28,170 @@ public class QueenBoard extends Bitboard {
         int ptr = 0;
 
         // Slide north
-        long slide_north = state;
-        while (slide_north << 8 != 0) {
-            slide_north <<= 8;
+        long slideNorth = state;
+        while (slideNorth << 8 != 0) {
+            slideNorth <<= 8;
             // If the move is onto a piece of the same colour, stop
-            if ((slide_north & game.getGameState(this.colour)) != 0) {
+            if ((slideNorth & game.getGameState(this.colour)) != 0) {
                 break;
             }
-            moves[ptr] = slide_north;
+            moves[ptr] = slideNorth;
             ptr++;
             // If move onto enemy piece, stop, cannot go further
-            if ((slide_north & game.getGameState(!this.colour)) != 0) {
+            if ((slideNorth & game.getGameState(!this.colour)) != 0) {
                 break;
             }
         }
 
         // Slide south
-        long slide_south = state;
-        while (slide_south >> 8 != 0) {
-            slide_south >>= 8;
+        long slideSouth = state;
+        while (slideSouth >> 8 != 0) {
+            slideSouth >>= 8;
             // If the move is onto a piece of the same colour, stop
-            if ((slide_south & game.getGameState(this.colour)) != 0) {
+            if ((slideSouth & game.getGameState(this.colour)) != 0) {
                 break;
             }
-            moves[ptr] = slide_south;
+            moves[ptr] = slideSouth;
             ptr++;
             // If move onto enemy piece, stop, cannot go further
-            if ((slide_south & game.getGameState(!this.colour)) != 0) {
+            if ((slideSouth & game.getGameState(!this.colour)) != 0) {
                 break;
             }
         }
 
         // Slide east
-        long slide_east = state;
-        long slide_east_file = file;
-        while (slide_east_file < 8) {
-            slide_east >>= 1;
-            slide_east_file++;
+        long slideEast = state;
+        int slideEastFile = file;
+        while (slideEastFile < 8) {
+            slideEast >>= 1;
+            slideEastFile++;
 
             // If the move is onto a piece of the same colour, stop
-            if ((slide_east & game.getGameState(this.colour)) != 0) {
+            if ((slideEast & game.getGameState(this.colour)) != 0) {
                 break;
             }
 
-            moves[ptr] = slide_east;
+            moves[ptr] = slideEast;
             ptr++;
 
             // If move onto enemy piece, stop, cannot go further
-            if ((slide_east & game.getGameState(!this.colour)) != 0) {
+            if ((slideEast & game.getGameState(!this.colour)) != 0) {
                 break;
             }
 
         }
 
         // Slide west
-        long slide_west = state;
-        long slide_west_file = file;
-        while (slide_west_file > 1) {
-            slide_west <<= 1;
-            slide_west_file--;
+        long slideWest = state;
+        int slideWestFile = file;
+        while (slideWestFile > 1) {
+            slideWest <<= 1;
+            slideWestFile--;
 
             // If the move is onto a piece of the same colour, stop
-            if ((slide_west & game.getGameState(this.colour)) != 0) {
+            if ((slideWest & game.getGameState(this.colour)) != 0) {
                 break;
             }
 
-            moves[ptr] = slide_west;
+            moves[ptr] = slideWest;
             ptr++;
 
             // If move onto enemy piece, stop, cannot go further
-            if ((slide_west & game.getGameState(!this.colour)) != 0) {
+            if ((slideWest & game.getGameState(!this.colour)) != 0) {
+                break;
+            }
+        }
+
+        // Slide north west
+        long slideNorthWest = state;
+        int slideNorthWestFile = file;
+        while (slideNorthWestFile > 1 && slideNorthWest << 9 != 0) {
+            slideNorthWest <<= 9; // Move north west
+            slideNorthWestFile--; // decrement file
+
+            // If move onto piece of same colour, stop
+            if ((slideNorthWest & game.getGameState(this.colour)) != 0) {
                 break;
             }
 
+            moves[ptr] = slideNorthWest;
+            ptr++;
+
+            // If move onto enemy piece, stop, cannot go further
+            if ((slideNorthWest & game.getGameState(!this.colour)) != 0) {
+                break;
+            }
         }
 
-        long[] res = new long[ptr];
+        // Slide north east
+        long slideNorthEast = state;
+        int slideNorthEastFile = file;
+        while (slideNorthEastFile < 8 && slideNorthEast << 7 != 0) {
+            slideNorthEast <<= 7;
+            slideNorthEastFile++;
+
+            // If move onto piece of same colour, stop
+            if ((slideNorthEast & game.getGameState(this.colour)) != 0) {
+                break;
+            }
+
+            moves[ptr] = slideNorthEast;
+            ptr++;
+
+            // If move onto enemy piece, stop, cannot go further
+            if ((slideNorthEast & game.getGameState(!this.colour)) != 0) {
+                break;
+            }
+        }
+
+        // Slide south west
+        long slideSouthWest = state;
+        int slideSouthWestFile = file;
+        while (slideSouthWestFile > 1 && slideNorthWest >> 7 != 0) {
+            slideSouthWest >>= 7; // Move north west
+            slideSouthWestFile--; // decrement file
+
+            // If move onto piece of same colour, stop
+            if ((slideSouthWest & game.getGameState(this.colour)) != 0) {
+                break;
+            }
+
+            moves[ptr] = slideSouthWest;
+            ptr++;
+
+            // If move onto enemy piece, stop, cannot go further
+            if ((slideSouthWest & game.getGameState(!this.colour)) != 0) {
+                break;
+            }
+        }
+
+        // Slide south east
+        long slideSouthEast = state;
+        int slideSouthEastFile = file;
+        while (slideSouthEastFile < 8 && slideSouthEast >> 9 != 0) {
+            slideSouthEast >>= 9;
+            slideSouthEastFile++;
+
+            // If move onto piece of same colour, stop
+            if ((slideSouthEast & game.getGameState(this.colour)) != 0) {
+                break;
+            }
+
+            moves[ptr] = slideSouthEast;
+            ptr++;
+
+            // If move onto enemy piece, stop, cannot go further
+            if ((slideSouthEast & game.getGameState(!this.colour)) != 0) {
+                break;
+            }
+        }
+
+        long[] filtered = new long[ptr];
         for (int i = 0; i < ptr; i++) {
-            res[i] = moves[i];
+            filtered[i] = moves[i];
         }
 
-        return res;
+        return filtered;
     }
 
 }
