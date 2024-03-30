@@ -24,7 +24,7 @@ public class QueenBoardTest {
 
         long[] moves = queen.makeMoves();
 
-        assertEquals(28, moves.length);
+        assertEquals(27, moves.length);
 
         long allMoves = 0;
         for (long move : moves) {
