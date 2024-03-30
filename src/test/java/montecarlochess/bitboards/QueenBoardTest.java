@@ -19,21 +19,17 @@ public class QueenBoardTest {
     }
 
     @Test
-    public void makeMovesTest() {
-        queen.state = 0x0000000008000000;
+    public void pseudoLegalMovesFromCentre() {
+        queen.state = 0x0000000008000000L;
 
         long[] moves = queen.makeMoves();
+
+        assertEquals(28, moves.length);
 
         long allMoves = 0;
         for (long move : moves) {
             allMoves |= move;
         }
-
-        assertEquals(28, moves.length);
-
-        Bitboard temp = new Bitboard();
-        temp.state = allMoves;
-        System.out.println(temp);
 
         // The board state which contains every legal move should be:
         // 1 0 0 0 1 0 0 0 | 8 8
@@ -51,4 +47,30 @@ public class QueenBoardTest {
 
     }
 
+    @Test
+    public void pseudoLegalMovesFromCorner() {
+        queen.state = 0x8000000000000000L;
+
+        long[] moves = queen.makeMoves();
+
+        assertEquals(21, moves.length);
+
+        long allMoves = 0;
+        for (long move : moves) {
+            allMoves |= move;
+        }
+
+        // The board state which contains every legal move should be:
+        // 0 1 1 1 1 1 1 1 | 7 F
+        // 1 1 0 0 0 0 0 0 | C 0
+        // 1 0 1 0 0 0 0 0 | A 0
+        // 1 0 0 1 0 0 0 0 | 9 0
+        // 1 0 0 0 1 0 0 0 | 8 8
+        // 1 0 0 0 0 1 0 0 | 8 4
+        // 1 0 0 0 0 0 1 0 | 8 2
+        // 1 0 0 0 0 0 0 1 | 8 1
+
+        long allCorrectMoves = 0x7FC0A09088848281l;
+        assertEquals(allCorrectMoves, allMoves);
+    }
 }

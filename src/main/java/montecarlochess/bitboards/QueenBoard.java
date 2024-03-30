@@ -147,7 +147,7 @@ public class QueenBoard extends Bitboard {
         // Slide south west
         long slideSouthWest = state;
         int slideSouthWestFile = file;
-        while (slideSouthWestFile > 1 && slideNorthWest >> 7 != 0) {
+        while (slideSouthWestFile > 1 && slideSouthWest >> 7 != 0) {
             slideSouthWest >>= 7; // Move north west
             slideSouthWestFile--; // decrement file
 
