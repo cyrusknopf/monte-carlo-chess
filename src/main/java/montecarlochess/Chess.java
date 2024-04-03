@@ -3,54 +3,89 @@ package montecarlochess;
 import montecarlochess.bitboards.*;
 
 public class Chess {
-    private Bitboard game_board;
-    private Bitboard white_game_board;
-    private Bitboard black_game_board;
+    private Bitboard gameBoard;
+    private Bitboard whiteBoard;
+    private Bitboard blackBoard;
 
-    private PawnBoard white_pawns;
-    private PawnBoard black_pawns;
+    private PawnBoard whitePawns;
+    private PawnBoard blackPawns;
 
-    private HorseBoard white_horses;
-    private HorseBoard black_horses;
+    private HorseBoard whiteHorses;
+    private HorseBoard blackHorses;
 
-    private KingBoard white_king;
-    private KingBoard black_king;
+    private KingBoard whiteKing;
+    private KingBoard blackKing;
+
+    private QueenBoard whiteQueen;
+    private QueenBoard blackQueen;
 
     public Chess() {
-        this.game_board = new Bitboard();
-        this.white_game_board = new Bitboard();
-        this.black_game_board = new Bitboard();
+        this.gameBoard = new Bitboard();
+        this.whiteBoard = new Bitboard();
+        this.blackBoard = new Bitboard();
 
-        this.white_pawns = new PawnBoard(this, true);
-        this.black_pawns = new PawnBoard(this, false);
+        this.whitePawns = new PawnBoard(this, true);
+        this.blackPawns = new PawnBoard(this, false);
 
-        this.white_horses = new HorseBoard(this, true);
-        this.black_horses = new HorseBoard(this, false);
+        this.whiteHorses = new HorseBoard(this, true);
+        this.blackHorses = new HorseBoard(this, false);
 
-        this.white_king = new KingBoard(this, true);
+        this.whiteKing = new KingBoard(this, true);
+        this.blackKing = new KingBoard(this, false);
+        this.whiteQueen = new QueenBoard(this, true);
+
+        this.blackQueen = new QueenBoard(this, false);
     }
 
     private void setGameState() {
-        this.game_board.state = white_pawns.state ^ black_pawns.state ^ white_horses.state ^ black_horses.state;
+        long whiteState = getGameState(true);
+        long blackState = getGameState(false);
+        gameBoard.state = whiteState ^ blackState;
+
     }
 
     private void setWhiteGameState() {
-        this.white_game_board.state = white_pawns.state ^ white_horses.state;
+        whiteBoard.state = whitePawns.state ^
+                whiteHorses.state ^
+                whiteKing.state ^
+                whiteQueen.state;
     }
 
     private void setBlackGameState() {
-        this.black_game_board.state = black_pawns.state ^ black_horses.state;
+        blackBoard.state = blackPawns.state ^
+                blackHorses.state ^
+                blackKing.state ^
+                blackQueen.state;
     }
 
+    public void setPawns(long state, boolean colour) {
+        if (colour) {
+            whitePawns.state = state;
+        } else {
+            blackPawns.state = state;
+        }
+    }
+
+    public void setQueen(long state, boolean colour) {
+        if (colour) {
+            whiteQueen.state = state;
+        } else {
+            blackQueen.state = state;
+        }
+    }
+
+    // expand to all pieces
     public long getGameState() {
-        return this.game_board.state;
+        long gameState = whitePawns.state ^
+                blackQueen.state;
+        return gameState;
     }
 
     public long getGameState(boolean colour) {
         if (colour) {
-            return white_pawns.state ^ white_horses.state;
+            return whitePawns.state ^ whiteHorses.state;
         } else {
-            return black_pawns.state ^ black_horses.state;
+            return blackPawns.state ^ blackHorses.state;
         }
     }
 

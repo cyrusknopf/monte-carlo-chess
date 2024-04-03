@@ -156,4 +156,44 @@ public class QueenBoardTest {
 
         assertEquals(allCorrectMoves, allMoves);
     }
+
+    @Test
+    public void pseudoLegalMovesE4Surrounded() {
+        queen.state = 0x0000000008000000L;
+
+        // Four black pawns surrounding the queen
+        long pawns = 0x0000000814080000L;
+
+        game.setPawns(pawns, true);
+        game.setQueen(queen.state, false);
+
+        long expState = 0x000000081C080000L;
+
+        long gameState = game.getGameState();
+
+        assertEquals(expState, gameState);
+
+        long[] moves = queen.makeMoves();
+
+        assertEquals(17, moves.length);
+
+        long allMoves = 0;
+        for (long move : moves) {
+            allMoves |= move;
+        }
+
+        // The board state which contains every legal move should be:
+        // 1 0 0 0 0 0 0 0 | 8 0
+        // 0 1 0 0 0 0 0 1 | 4 1
+        // 0 0 1 0 0 0 1 0 | 2 2
+        // 0 0 0 1 1 1 0 0 | 1 C
+        // 0 0 0 1 0 1 0 0 | 1 4
+        // 0 0 0 1 1 1 0 0 | 1 C
+        // 0 0 1 0 0 0 1 0 | 2 2
+        // 0 1 0 0 0 0 0 1 | 4 1
+
+        long allCorrectMoves = 0x8041221C141C2241L;
+
+        assertEquals(allCorrectMoves, allMoves);
+    }
 }
