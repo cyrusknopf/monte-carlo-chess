@@ -45,8 +45,8 @@ public class QueenBoard extends Bitboard {
 
         // Slide south
         long slideSouth = state;
-        while (slideSouth >> 8 != 0) {
-            slideSouth >>= 8;
+        while (slideSouth >>> 8 != 0) {
+            slideSouth >>>= 8;
             // If the move is onto a piece of the same colour, stop
             if ((slideSouth & game.getGameState(this.colour)) != 0) {
                 break;
@@ -63,8 +63,8 @@ public class QueenBoard extends Bitboard {
         long slideEast = state;
         int slideEastFile = file;
         while (slideEastFile < 8) {
-            slideEast >>= 1;
-            slideEastFile++;
+            slideEast >>>= 1;
+            slideEastFile = Bitboard.getFile(slideEast);
 
             // If the move is onto a piece of the same colour, stop
             if ((slideEast & game.getGameState(this.colour)) != 0) {
@@ -78,7 +78,6 @@ public class QueenBoard extends Bitboard {
             if ((slideEast & game.getGameState(!this.colour)) != 0) {
                 break;
             }
-
         }
 
         // Slide west
@@ -147,8 +146,8 @@ public class QueenBoard extends Bitboard {
         // Slide south west
         long slideSouthWest = state;
         int slideSouthWestFile = file;
-        while (slideSouthWestFile > 1 && slideSouthWest >> 7 != 0) {
-            slideSouthWest >>= 7; // Move north west
+        while (slideSouthWestFile > 1 && slideSouthWest >>> 7 != 0) {
+            slideSouthWest >>>= 7; // Move north west
             slideSouthWestFile--; // decrement file
 
             // If move onto piece of same colour, stop
@@ -168,8 +167,8 @@ public class QueenBoard extends Bitboard {
         // Slide south east
         long slideSouthEast = state;
         int slideSouthEastFile = file;
-        while (slideSouthEastFile < 8 && slideSouthEast >> 9 != 0) {
-            slideSouthEast >>= 9;
+        while (slideSouthEastFile < 8 && slideSouthEast >>> 9 != 0) {
+            slideSouthEast >>>= 9;
             slideSouthEastFile++;
 
             // If move onto piece of same colour, stop
@@ -193,5 +192,4 @@ public class QueenBoard extends Bitboard {
 
         return filtered;
     }
-
 }
