@@ -196,4 +196,41 @@ public class QueenBoardTest {
 
         assertEquals(allCorrectMoves, allMoves);
     }
+
+    @Test
+    public void pseudoLegalMovesE4Stuck() {
+        queen.state = 0x0000000008000000L;
+
+        // Four black pawns surrounding the queen
+        long pawns = 0x0000001C141C0000L;
+
+        game.setPawns(pawns, false);
+        game.setQueen(queen.state, false);
+
+        long[] moves = queen.makeMoves();
+
+        assertEquals(0, moves.length);
+
+        long allMoves = 0;
+        for (long move : moves) {
+            Bitboard temp = new Bitboard();
+            temp.state = move;
+            System.out.println(temp);
+            allMoves |= move;
+        }
+
+        // The board state which contains every legal move should be:
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+        // 0 0 0 0 0 0 0 0 |
+
+        long allCorrectMoves = 0x0L;
+
+        assertEquals(allCorrectMoves, allMoves);
+    }
 }
