@@ -19,28 +19,7 @@ public class HorseBoardTest {
     }
 
     @Test
-    public void legalMovesFromCentre() {
-        horse.state = 0x0000000008000000;
-
-        long[] moves = horse.getPseudoLegalMoves();
-
-        assertEquals(8, moves.length);
-
-        long allMovesState = 0;
-
-        for (long move : moves) {
-            allMovesState |= move;
-        }
-
-        horse.state = allMovesState;
-
-        long correctAllMovesState = 0x0000142200221400L;
-
-        assertEquals(correctAllMovesState, allMovesState);
-    }
-
-    @Test
-    public void pseudoLegalMovesFromCentre() {
+    public void pseudoLegalMovesE4() {
         horse.state = 0x0000000008000000;
 
         long[] moves = horse.getPseudoLegalMoves();
@@ -69,7 +48,7 @@ public class HorseBoardTest {
     }
 
     @Test
-    public void pseudoLegalMovesFile8() {
+    public void pseudoLegalMovesH6() {
         horse.state = 0x0000010000000000L;
 
         long[] moves = horse.getPseudoLegalMoves();
@@ -101,4 +80,73 @@ public class HorseBoardTest {
 
     }
 
+    @Test
+    public void pseudoLegalMovesH6Blocked() {
+        horse.state = 0x0000010000000000L;
+
+        long pawns = 0x0204000402000000L;
+
+        game.setPawns(pawns, false);
+        game.setHorses(horse.state, false);
+
+        long[] moves = horse.getPseudoLegalMoves();
+
+        assertEquals(0, moves.length);
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        // Board should look like this:
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+
+        long correctAllMovesState = 0x0L;
+
+        assertEquals(correctAllMovesState, allMovesState);
+
+    }
+
+    @Test
+    public void pseudoLegalMovesH6Captures() {
+        horse.state = 0x0000010000000000L;
+
+        long pawns = 0x0204000402000000L;
+
+        game.setPawns(pawns, true);
+        game.setHorses(horse.state, false);
+
+        long[] moves = horse.getPseudoLegalMoves();
+
+        assertEquals(4, moves.length);
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        // Board should look like this:
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 1 0 0
+        // 0 0 0 0 0 0 1 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+        // 0 0 0 0 0 0 0 0
+
+        long correctAllMovesState = 0x0204000402000000L;
+
+        assertEquals(correctAllMovesState, allMovesState);
+
+    }
 }

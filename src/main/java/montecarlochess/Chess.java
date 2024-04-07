@@ -74,21 +74,31 @@ public class Chess {
         }
     }
 
+    public void setHorses(long state, boolean colour) {
+        if (colour) {
+            whiteHorses.state = state;
+        } else {
+            blackHorses.state = state;
+        }
+    }
+
     // TODO expand to all pieces
     public long getGameState() {
         long gameState = whitePawns.state ^
                 blackPawns.state ^
                 blackQueen.state ^
-                whiteQueen.state;
+                whiteQueen.state ^
+                whiteHorses.state ^
+                blackHorses.state;
         return gameState;
     }
 
     // TODO expand to all pieces
     public long getGameState(boolean colour) {
         if (colour) {
-            return whitePawns.state ^ whiteHorses.state ^ whiteQueen.state;
+            return whitePawns.state ^ whiteHorses.state ^ whiteQueen.state ^ whiteHorses.state;
         } else {
-            return blackPawns.state ^ blackHorses.state ^ blackQueen.state;
+            return blackPawns.state ^ blackHorses.state ^ blackQueen.state ^ blackHorses.state;
         }
     }
 

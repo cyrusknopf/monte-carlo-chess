@@ -78,6 +78,7 @@ public class HorseBoard extends Bitboard {
     }
 
     public long[] getPseudoLegalMoves() {
+        // At most eight moves, so create an array to store, later filtered
         long[] moves = new long[8];
         int ptr = 0;
         for (long piece : this.getAllPieceStates()) {
@@ -104,6 +105,7 @@ public class HorseBoard extends Bitboard {
 
         }
 
+        // Populate a new array with only legal moves in to return
         long[] filtered = new long[ptr];
         int i = 0;
 
@@ -116,5 +118,4 @@ public class HorseBoard extends Bitboard {
 
         return filtered;
     }
-
 }
