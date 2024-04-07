@@ -22,7 +22,7 @@ public class QueenBoard extends Bitboard {
         return super.state;
     }
 
-    public long[] makeMoves() {
+    public long[] getPseudoLegalMoves() {
         int file = getFile(state);
         long[] moves = new long[28];
         int ptr = 0;

@@ -22,7 +22,7 @@ public class QueenBoardTest {
     public void pseudoLegalMovesE4() {
         queen.state = 0x0000000008000000L;
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(27, moves.length);
 
@@ -51,7 +51,7 @@ public class QueenBoardTest {
     public void pseudoLegalMovesA8() {
         queen.state = 0x8000000000000000L;
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(21, moves.length);
 
@@ -78,7 +78,7 @@ public class QueenBoardTest {
     public void pseudoLegalMovesB7() {
         queen.state = 0x0040000000000000L;
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(23, moves.length);
 
@@ -106,7 +106,7 @@ public class QueenBoardTest {
     public void pseudoLegalMovesA3() {
         queen.state = 0x0000000000800000L;
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(21, moves.length);
 
@@ -133,7 +133,7 @@ public class QueenBoardTest {
     public void pseudoLegalMovesB8() {
         queen.state = 0x4000000000000000L;
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(21, moves.length);
 
@@ -173,7 +173,7 @@ public class QueenBoardTest {
 
         assertEquals(expState, gameState);
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(17, moves.length);
 
@@ -207,7 +207,7 @@ public class QueenBoardTest {
         game.setPawns(pawns, false);
         game.setQueen(queen.state, false);
 
-        long[] moves = queen.makeMoves();
+        long[] moves = queen.getPseudoLegalMoves();
 
         assertEquals(0, moves.length);
 

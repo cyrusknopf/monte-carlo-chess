@@ -2,8 +2,6 @@ package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
 
-import java.util.ArrayList;
-
 public class HorseBoard extends Bitboard {
     private long init = 0x42L;
     private Chess game;
@@ -79,8 +77,9 @@ public class HorseBoard extends Bitboard {
 
     }
 
-    public ArrayList<Long> getPseudoLegalMoves() {
-        ArrayList<Long> moves = new ArrayList<>();
+    public long[] getPseudoLegalMoves() {
+        long[] moves = new long[8];
+        int ptr = 0;
         for (long piece : this.getAllPieceStates()) {
             for (long move : makeMoves(piece)) {
                 /*
@@ -99,13 +98,23 @@ public class HorseBoard extends Bitboard {
                 if ((move & game.getGameState(this.colour)) != 0) {
                     continue;
                 }
-
-                moves.add(move);
+                moves[ptr] = move;
+                ptr++;
             }
 
         }
 
-        return moves;
+        long[] filtered = new long[ptr];
+        int i = 0;
+
+        for (long move : moves) {
+            if (move != 0) {
+                filtered[i] = move;
+                i++;
+            }
+        }
+
+        return filtered;
     }
 
 }

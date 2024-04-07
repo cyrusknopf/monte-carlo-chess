@@ -2,8 +2,6 @@ package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +22,9 @@ public class HorseBoardTest {
     public void legalMovesFromCentre() {
         horse.state = 0x0000000008000000;
 
-        ArrayList<Long> moves = horse.getPseudoLegalMoves();
+        long[] moves = horse.getPseudoLegalMoves();
 
-        assertEquals(8, moves.size());
+        assertEquals(8, moves.length);
 
         long allMovesState = 0;
 
@@ -45,9 +43,9 @@ public class HorseBoardTest {
     public void pseudoLegalMovesFromCentre() {
         horse.state = 0x0000000008000000;
 
-        ArrayList<Long> moves = horse.getPseudoLegalMoves();
+        long[] moves = horse.getPseudoLegalMoves();
 
-        assertEquals(8, moves.size());
+        assertEquals(8, moves.length);
 
         long allMovesState = 0;
 
@@ -74,9 +72,9 @@ public class HorseBoardTest {
     public void pseudoLegalMovesFile8() {
         horse.state = 0x0000010000000000L;
 
-        ArrayList<Long> moves = horse.getPseudoLegalMoves();
+        long[] moves = horse.getPseudoLegalMoves();
 
-        assertEquals(4, moves.size());
+        assertEquals(4, moves.length);
 
         long allMovesState = 0;
 
@@ -102,7 +100,5 @@ public class HorseBoardTest {
         assertEquals(correctAllMovesState, allMovesState);
 
     }
-
-    // TODO add tests for file 1, top and bottom ranks with file 1 and 8
 
 }
