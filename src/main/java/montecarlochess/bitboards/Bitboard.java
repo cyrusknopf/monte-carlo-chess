@@ -1,7 +1,5 @@
 package montecarlochess.bitboards;
 
-import java.util.ArrayList;
-
 public class Bitboard {
     public long state;
     public long empty;
@@ -28,15 +26,27 @@ public class Bitboard {
      *
      * @return ArrayList of board states each with a single piece
      */
-    public ArrayList<Long> getAllPieceStates() {
+    public long[] getAllPieceStates() {
         long initState = this.state;
-        ArrayList<Long> longs = new ArrayList<>();
+        long[] pieces = new long[8];
+        int ptr = 0;
         while (initState != 0) {
             long thisPiece = initState & -initState;
-            longs.add(thisPiece);
+            pieces[ptr] = thisPiece;
+            ptr++;
             initState &= initState - 1;
         }
-        return longs;
+
+        int i = 0;
+        long[] filtered = new long[ptr];
+        for (long piece : pieces) {
+            if (piece != 0) {
+                filtered[i] = piece;
+                i++;
+            }
+        }
+
+        return filtered;
     }
 
     /*
@@ -67,6 +77,16 @@ public class Bitboard {
 
         int file = 8 - exp;
         return file;
+    }
+
+    public static int getRank(long state) {
+        int rank = 0;
+        long tempState = state;
+        while (tempState != 0) {
+            tempState >>>= 8;
+            rank++;
+        }
+        return rank;
     }
 
     public long slideNorth() {

@@ -1,6 +1,7 @@
 package montecarlochess.bitboards;
 
 import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -109,5 +110,20 @@ public class BitboardTest {
         bb.state = state;
         int file = Bitboard.getFile(bb.state);
         assertEquals(5, file);
+    }
+
+    @Test
+    public void getRank1() {
+        long state = 0x1;
+        int rank = Bitboard.getRank(state);
+        assertEquals(1, rank);
+
+    }
+
+    @Test
+    public void getRank2() {
+        long state = 0x1000L;
+        int rank = Bitboard.getRank(state);
+        assertEquals(2, rank);
     }
 }

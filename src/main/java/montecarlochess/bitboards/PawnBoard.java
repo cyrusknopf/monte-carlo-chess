@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class PawnBoard extends Bitboard {
     private long init = 0x000000000000FF00L;
     private Chess game;
-    private boolean colour;
+    public boolean colour;
 
     public PawnBoard(Chess game, boolean colour) {
         this.empty = 0x0L;
@@ -114,16 +114,43 @@ public class PawnBoard extends Bitboard {
         return pseudoLegalMoves;
     }
 
-    // Get the pseudo legal moves for all pawns
-    public ArrayList<PawnBoard> getPseudoLegalMoves() {
-        // Stores moves
-        ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
-        // Iterates through all pawns, getting the legal moves
-        for (PawnBoard pawnBoard : this.getAllBoards()) {
-            pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalPushes());
-            pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalCaptures());
+    public long[] makeMoves(long state, boolean colour) {
+        long[] moves;
+        if (colour && Bitboard.getRank(state) == 2) {
+            moves = new long[4];
+        } else if (!colour && Bitboard.getRank(state) == 7) {
+            moves = new long[4];
+        } else {
+            moves = new long[3];
         }
-        return pseudoLegalMoves;
+
+        long move = state << 8;
+        int ptr = 0;
+        if ((move & game.getGameState(!colour)) == 0) {
+            moves[ptr] = move;
+            ptr++;
+            if (moves.length == 4) {
+                move <<= 8;
+                if ((move & game.getGameState(!colour)) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+            }
+        }
+
+        return moves;
     }
+
+    // Get the pseudo legal moves for all pawns
+    // public ArrayList<PawnBoard> getPseudoLegalMoves() {
+    // // Stores moves
+    // ArrayList<PawnBoard> pseudoLegalMoves = new ArrayList<>();
+    // // Iterates through all pawns, getting the legal moves
+    // for (PawnBoard pawnBoard : this.getAllBoards()) {
+    // pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalPushes());
+    // pseudoLegalMoves.addAll(pawnBoard.getPseudoLegalCaptures());
+    // }
+    // return pseudoLegalMoves;
+    // }
 
 }

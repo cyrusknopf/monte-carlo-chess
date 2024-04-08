@@ -6,14 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 
-
 public class PawnBoardTest {
 
     private Chess game;
+    private PawnBoard pawn;
 
     @BeforeEach
     public void setUp() {
         game = new Chess();
+        pawn = new PawnBoard(game, false);
     }
 
     @Test
@@ -28,5 +29,13 @@ public class PawnBoardTest {
         PawnBoard blackBoard = new PawnBoard(game, false);
         long expected = Long.reverse(0x000000000000FF00L);
         Assertions.assertEquals(expected, blackBoard.initialiseBoard());
+    }
+
+    @Test
+    public void pseudoLegalMovesStart() {
+        pawn.state = 0x000000000000FF00L;
+
+        long[] moves = pawn.getPseudoLegalMoves(pawn.state, pawn.colour);
+
     }
 }
