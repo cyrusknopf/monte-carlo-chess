@@ -114,31 +114,77 @@ public class PawnBoard extends Bitboard {
         return pseudoLegalMoves;
     }
 
-    public long[] makeMoves(long state, boolean colour) {
-        long[] moves;
-        if (colour && Bitboard.getRank(state) == 2) {
-            moves = new long[4];
-        } else if (!colour && Bitboard.getRank(state) == 7) {
-            moves = new long[4];
-        } else {
-            moves = new long[3];
-        }
-
-        long move = state << 8;
+    public long[] getPseudoLegalMoves(long state, boolean colour) {
+        long moves[];
+        long move;
         int ptr = 0;
-        if ((move & game.getGameState(!colour)) == 0) {
-            moves[ptr] = move;
-            ptr++;
-            if (moves.length == 4) {
-                move <<= 8;
-                if ((move & game.getGameState(!colour)) == 0) {
+        if (colour) {
+            // Check if first move
+            if (Bitboard.getRank(state) == 2) {
+                moves = new long[4];
+                // Check double push
+                move = state << 16;
+                if ((move & game.getGameState()) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+            } else {
+                moves = new long[3];
+                // Check push
+                move = state << 8;
+                if ((move & game.getGameState()) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+                // Check captures
+                move = state << 6;
+                if ((move & game.getGameState(!colour)) != 0 && (move & game.getGameState(colour)) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+                // Check captures
+                move = state << 9;
+                if ((move & game.getGameState(!colour)) != 0 && (move & game.getGameState(colour)) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+            }
+        } else {
+            if (Bitboard.getRank(state) == 7) {
+                moves = new long[4];
+                move = state >>> 16;
+                if ((move & game.getGameState()) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+            } else {
+                moves = new long[3];
+                // Check push
+                move = state >>> 8;
+                if ((move & game.getGameState()) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+                // Check captures
+                move = state >>> 6;
+                if ((move & game.getGameState(!colour)) != 0 && (move & game.getGameState(colour)) == 0) {
+                    moves[ptr] = move;
+                    ptr++;
+                }
+                // Check captures
+                move = state >>> 9;
+                if ((move & game.getGameState(!colour)) != 0 && (move & game.getGameState(colour)) == 0) {
                     moves[ptr] = move;
                     ptr++;
                 }
             }
         }
 
-        return moves;
+        long[] filtered = new long[ptr];
+        for (int i = 0; i < ptr; i++) {
+            filtered[i] = moves[i];
+        }
+        return filtered;
     }
 
     // Get the pseudo legal moves for all pawns

@@ -36,6 +36,5 @@ public class PawnBoardTest {
         pawn.state = 0x000000000000FF00L;
 
         long[] moves = pawn.getPseudoLegalMoves(pawn.state, pawn.colour);
-
     }
 }
