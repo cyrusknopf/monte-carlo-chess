@@ -59,4 +59,33 @@ public class PawnBoardTest {
 
         assertEquals(correctAllMovesState, allMovesState);
     }
+
+    @Test
+    public void pseudoLegalMovesWhiteStart() {
+        pawn.state = 0x000000000000FF00L;
+
+        long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
+
+        // assertEquals(16, moves.length);
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        long correctAllMovesState = 0x0000000000FF0000L;
+
+        // The board state which contains every legal move should be:
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 8 0
+        // 1 1 1 1 1 1 1 1 | 0 0
+        // 1 1 1 1 1 1 1 1 | F F
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+
+        assertEquals(correctAllMovesState, allMovesState);
+    }
 }
