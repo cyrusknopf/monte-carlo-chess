@@ -4,7 +4,7 @@ import montecarlochess.Chess;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PawnBoardTest {
 
@@ -14,27 +14,49 @@ public class PawnBoardTest {
     @BeforeEach
     public void setUp() {
         game = new Chess();
-        pawn = new PawnBoard(game, false);
+        pawn = new PawnBoard(game, true);
     }
 
     @Test
     public void testInitialiseBoardWhite() {
         PawnBoard whiteBoard = new PawnBoard(game, true);
         long expected = 0x000000000000FF00L;
-        Assertions.assertEquals(expected, whiteBoard.initialiseBoard());
+        assertEquals(expected, whiteBoard.initialiseBoard());
     }
 
     @Test
     public void testInitialiseBoardBlack() {
         PawnBoard blackBoard = new PawnBoard(game, false);
         long expected = Long.reverse(0x000000000000FF00L);
-        Assertions.assertEquals(expected, blackBoard.initialiseBoard());
+        assertEquals(expected, blackBoard.initialiseBoard());
     }
 
     @Test
-    public void pseudoLegalMovesStart() {
-        pawn.state = 0x000000000000FF00L;
+    public void pseudoLegalMovesE4() {
+        pawn.state = 0x0000000008000000;
 
-        long[] moves = pawn.getPseudoLegalMoves(pawn.state, pawn.colour);
+        long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
+
+        assertEquals(1, moves.length);
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        long correctAllMovesState = 0x0000000800000000L;
+
+        // The board state which contains every legal move should be:
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 1 0 0 0 | 8 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+
+        assertEquals(correctAllMovesState, allMovesState);
     }
 }

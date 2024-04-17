@@ -114,7 +114,7 @@ public class PawnBoard extends Bitboard {
         return pseudoLegalMoves;
     }
 
-    public long[] getPseudoLegalMoves(long state, boolean colour) {
+    public long[] getPseudoLegalMoves(boolean colour) {
         long moves[];
         long move;
         int ptr = 0;
