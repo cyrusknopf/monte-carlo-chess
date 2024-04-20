@@ -74,14 +74,14 @@ public class PawnBoardTest {
             allMovesState |= move;
         }
 
-        long correctAllMovesState = 0x0000000000FF0000L;
+        long correctAllMovesState = 0x00000000FFFF0000L;
 
         // The board state which contains every legal move should be:
         // 0 0 0 0 0 0 0 0 | 0 0
         // 0 0 0 0 0 0 0 0 | 0 0
         // 0 0 0 0 0 0 0 0 | 0 0
-        // 0 0 0 0 0 0 0 0 | 8 0
-        // 1 1 1 1 1 1 1 1 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 1 1 1 1 1 1 1 1 | F F
         // 1 1 1 1 1 1 1 1 | F F
         // 0 0 0 0 0 0 0 0 | 0 0
         // 0 0 0 0 0 0 0 0 | 0 0
