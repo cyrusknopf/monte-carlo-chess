@@ -66,7 +66,7 @@ public class PawnBoardTest {
 
         long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
 
-        // assertEquals(16, moves.length);
+        assertEquals(16, moves.length);
 
         long allMovesState = 0;
 
@@ -87,5 +87,40 @@ public class PawnBoardTest {
         // 0 0 0 0 0 0 0 0 | 0 0
 
         assertEquals(correctAllMovesState, allMovesState);
+    }
+
+    @Test
+    public void pseudoLegalDoubleCaptureD1() {
+        pawn.state = 0x0000000000000010L;
+
+        long pawns = 0x0000000000002800L;
+
+        game.setPawns(pawn.state, true);
+        game.setPawns(pawns, false);
+
+        long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
+
+        assertEquals(3, moves.length);
+
+        long allMovesState = 0;
+
+        for (long move : moves) {
+            allMovesState |= move;
+        }
+
+        long correctAllMovesState = 0x0000000000003800L;
+
+        // The board state which contains every legal move should be:
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 0 0 0 0 0 0 | 0 0
+        // 0 0 1 1 1 0 0 0 | 3 8
+        // 0 0 0 0 0 0 0 0 | 0 0
+
+        assertEquals(correctAllMovesState, allMovesState);
+
     }
 }
