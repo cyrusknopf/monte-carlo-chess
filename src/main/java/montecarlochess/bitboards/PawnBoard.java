@@ -56,10 +56,14 @@ public class PawnBoard extends Bitboard {
             if (Bitboard.getRank(state) == 2) {
                 moves = new long[4];
                 // Check double push
-                move = state << 16;
+                move = state << 8;
+                // Check to ensure the pawn is jumping over a piece
                 if ((move & game.getGameState()) == 0) {
-                    moves[ptr] = move;
-                    ptr++;
+                    move <<= 8;
+                    if ((move & game.getGameState()) == 0) {
+                        moves[ptr] = move;
+                        ptr++;
+                    }
                 }
             } else {
                 moves = new long[3];
@@ -87,10 +91,13 @@ public class PawnBoard extends Bitboard {
         } else {
             if (Bitboard.getRank(state) == 7) {
                 moves = new long[4];
-                move = state >>> 16;
+                move = state >>> 8;
                 if ((move & game.getGameState()) == 0) {
-                    moves[ptr] = move;
-                    ptr++;
+                    move >>>= 8;
+                    if ((move & game.getGameState()) == 0) {
+                        moves[ptr] = move;
+                        ptr++;
+                    }
                 }
             } else {
                 moves = new long[3];

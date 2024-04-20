@@ -123,4 +123,18 @@ public class PawnBoardTest {
         assertEquals(correctAllMovesState, allMovesState);
 
     }
+
+    @Test
+    public void pseudoLegalWhiteJumpWhite() {
+        pawn.state = 0x0000000000000100L;
+
+        long queen = 0x0000000000010000L;
+
+        game.setPawns(pawn.state, true);
+        game.setQueen(queen, true);
+
+        long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
+
+        assertEquals(0, moves.length);
+    }
 }
