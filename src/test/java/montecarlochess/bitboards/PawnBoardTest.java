@@ -137,4 +137,19 @@ public class PawnBoardTest {
 
         assertEquals(0, moves.length);
     }
+
+    @Test
+    public void pseudoLegalBlackJumpBlack() {
+        pawn = new PawnBoard(game, false);
+        pawn.state = 0x0001000000000000L; // Black pawn at row 7
+
+        long queen = 0x0000010000000000L; // Black queen blocking the pawn
+
+        game.setPawns(pawn.state, false);
+        game.setQueen(queen, false);
+
+        long[] moves = pawn.getPseudoLegalMoves(pawn.colour);
+
+        assertEquals(0, moves.length);
+    }
 }
