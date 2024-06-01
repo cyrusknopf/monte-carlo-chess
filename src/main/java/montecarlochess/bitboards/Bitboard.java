@@ -21,6 +21,14 @@ public class Bitboard {
         return this.state;
     }
 
+    // Prototype, not sure works, just spitballing. Captor would remain the same.
+    // The idea is that the captor has a piece which is on the same square as the
+    // victim board. The captor board remains the same, the victim simply removes
+    // the piece on the square where there is a piece on both states.
+    public long capture(long captor, long victim) {
+        return victim ^ captor;
+    }
+
     /*
      * Used to get boards of each isolated piece
      *
