@@ -89,44 +89,44 @@ public class Bitboard {
         return rank;
     }
 
-    public long slideNorth() {
-        this.state = this.state << 8;
-        return this.state;
+    public static long slideNorth(long state) {
+        state = state << 8;
+        return state;
     }
 
-    public long slideNorthEast() {
-        this.state = this.state << 7;
-        return this.state;
+    public static long slideNorthEast(long state) {
+        state = state << 7;
+        return state;
     }
 
-    public long slideEast() {
-        this.state = this.state >> 1;
-        return this.state;
+    public static long slideEast(long state) {
+        state = state >> 1;
+        return state;
     }
 
-    public long slideSouthEast() {
-        this.state = this.state >> 9;
-        return this.state;
+    public static long slideSouthEast(long state) {
+        state = state >> 9;
+        return state;
     }
 
-    public long slideSouth() {
-        this.state = this.state >> 8;
-        return this.state;
+    public static long slideSouth(long state) {
+        state = state >> 8;
+        return state;
     }
 
-    public long slideSouthWest() {
-        this.state = state >> 7;
-        return this.state;
+    public static long slideSouthWest(long state) {
+        state = state >> 7;
+        return state;
     }
 
-    public long slideWest() {
-        this.state = this.state << 1;
-        return this.state;
+    public static long slideWest(long state) {
+        state = state << 1;
+        return state;
     }
 
-    public long slideNorthWest() {
-        this.state = this.state << 9;
-        return this.state;
+    public static long slideNorthWest(long state) {
+        state = state << 9;
+        return state;
     }
 
     @Override
