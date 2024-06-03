@@ -53,8 +53,8 @@ public class KingBoardTest {
         // Four black pawns surrounding the queen
         long pawns = 0x0000001C141C0000L;
 
-        game.setPawns(pawns, false);
-        game.setKing(king.state, false);
+        game.setPawns(pawns, true);
+        game.setKing(king.state, true);
 
         long[] moves = king.getPseudoLegalMoves();
 
