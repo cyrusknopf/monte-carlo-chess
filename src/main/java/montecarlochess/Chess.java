@@ -22,6 +22,9 @@ public class Chess {
     private QueenBoard whiteQueen;
     private QueenBoard blackQueen;
 
+    private CastleBoard whiteCastle;
+    private CastleBoard blackCastle;
+
     public Chess() {
         this.gameBoard = new Bitboard();
         this.whiteBoard = new Bitboard();
@@ -82,6 +85,22 @@ public class Chess {
             whiteHorses.state = state;
         } else {
             blackHorses.state = state;
+        }
+    }
+
+    public void setKing(long state, boolean colour) {
+        if (colour) {
+            whiteKing.state = state;
+        } else {
+            blackKing.state = state;
+        }
+    }
+
+    public void setCastle(long state, boolean colour) {
+        if (colour) {
+            whiteCastle.state = state;
+        } else {
+            blackCastle.state = state;
         }
     }
 
