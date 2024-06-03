@@ -110,6 +110,8 @@ public class Chess {
                 blackPawns.state ^
                 blackQueen.state ^
                 whiteQueen.state ^
+                whiteKing.state ^
+                blackKing.state ^
                 whiteHorses.state ^
                 blackHorses.state;
         return gameState;
@@ -118,9 +120,9 @@ public class Chess {
     // TODO expand to all pieces
     public long getGameState(boolean colour) {
         if (colour) {
-            return whitePawns.state ^ whiteHorses.state ^ whiteQueen.state ^ whiteHorses.state;
+            return whitePawns.state ^ whiteHorses.state ^ whiteQueen.state ^ whiteHorses.state ^ whiteKing.state;
         } else {
-            return blackPawns.state ^ blackHorses.state ^ blackQueen.state ^ blackHorses.state;
+            return blackPawns.state ^ blackHorses.state ^ blackQueen.state ^ blackHorses.state ^ blackKing.state;
         }
     }
 
@@ -131,10 +133,10 @@ public class Chess {
         long square = 1L;
 
         for (int i = 0; i < file; i++) {
-            Bitboard.slideNorth(square);
+            square = Bitboard.slideNorth(square);
         }
-        for (int j = 0; j < rank; j++) {
-            Bitboard.slideEast(square);
+        for (int j = 0; j < 8 - rank; j++) {
+            square = Bitboard.slideEast(square);
         }
         return square;
     }

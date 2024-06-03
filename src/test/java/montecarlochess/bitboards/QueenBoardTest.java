@@ -213,9 +213,6 @@ public class QueenBoardTest {
 
         long allMoves = 0;
         for (long move : moves) {
-            Bitboard temp = new Bitboard();
-            temp.state = move;
-            System.out.println(temp);
             allMoves |= move;
         }
 
