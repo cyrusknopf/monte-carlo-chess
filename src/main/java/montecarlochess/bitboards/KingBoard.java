@@ -5,7 +5,7 @@ import montecarlochess.Chess;
 public class KingBoard extends Bitboard {
     private long init = 0x8L;
     final private Chess game;
-    final private boolean colour;
+    final protected boolean colour;
 
     public KingBoard(Chess game, boolean colour) {
         this.game = game;
@@ -24,15 +24,10 @@ public class KingBoard extends Bitboard {
     }
 
     public long[] getPseudoLegalMoves() {
-        /*
-         * There are eight possible moves the king can make,
-         * one in each direction, so we initialse an array to
-         * temporarily store these possible moves
-         */
         long[] tempMoves = new long[8];
         long[] moves = new long[8];
 
-        // Carry out the moves
+        // Attempt all possible moves, preemptively
         tempMoves[0] = Bitboard.slideNorth(state);
         if (Bitboard.getFile(this.state) < 8) {
             tempMoves[1] = Bitboard.slideNorthEast(state);
@@ -68,7 +63,6 @@ public class KingBoard extends Bitboard {
         for (int i = 0; i < ptr; i++) {
             filtered[i] = moves[i];
         }
-
         return filtered;
     }
 

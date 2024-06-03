@@ -181,4 +181,5 @@ public class PawnBoardTest {
 
         assertEquals(0, moves.length);
     }
+
 }
