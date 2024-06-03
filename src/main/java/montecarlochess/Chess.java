@@ -19,6 +19,9 @@ public class Chess {
     private QueenBoard whiteQueen;
     private QueenBoard blackQueen;
 
+    private CastleBoard whiteCastle;
+    private CastleBoard blackCastle;
+
     public Chess() {
         this.gameBoard = new Bitboard();
         this.whiteBoard = new Bitboard();
@@ -32,9 +35,12 @@ public class Chess {
 
         this.whiteKing = new KingBoard(this, true);
         this.blackKing = new KingBoard(this, false);
-        this.whiteQueen = new QueenBoard(this, true);
 
+        this.whiteQueen = new QueenBoard(this, true);
         this.blackQueen = new QueenBoard(this, false);
+
+        this.whiteCastle = new CastleBoard(this, true);
+        this.blackCastle = new CastleBoard(this, false);
     }
 
     private void setGameState() {
@@ -82,6 +88,21 @@ public class Chess {
         }
     }
 
+    public void setKing(long state, boolean colour) {
+        if (colour) {
+            whiteKing.state = state;
+        } else {
+            blackKing.state = state;
+        }
+    }
+
+    public void setCastle(long state, boolean colour) {
+        if (colour) {
+            whiteCastle.state = state;
+        } else {
+            blackCastle.state = state;
+        }
+    }
     // TODO expand to all pieces
     public long getGameState() {
         long gameState = whitePawns.state ^
