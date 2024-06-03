@@ -44,5 +44,4 @@ public class KingBoardTest {
 
         assertEquals(correctAllMovesState, allMovesState);
     }
-
 }

@@ -5,9 +5,9 @@ import montecarlochess.Chess;
 import java.util.ArrayList;
 
 public class PawnBoard extends Bitboard {
-    private long init = 0x000000000000FF00L;
-    private Chess game;
-    public boolean colour;
+    final protected long init = 0x000000000000FF00L;
+    final protected Chess game;
+    final public boolean colour;
 
     public PawnBoard(Chess game, boolean colour) {
         this.empty = 0x0L;
