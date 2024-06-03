@@ -3,6 +3,9 @@ package montecarlochess;
 import montecarlochess.bitboards.*;
 
 public class Chess {
+    final boolean WHITE = true;
+    final boolean BLACK = false;
+
     private Bitboard gameBoard;
     private Bitboard whiteBoard;
     private Bitboard blackBoard;
@@ -24,17 +27,17 @@ public class Chess {
         this.whiteBoard = new Bitboard();
         this.blackBoard = new Bitboard();
 
-        this.whitePawns = new PawnBoard(this, true);
-        this.blackPawns = new PawnBoard(this, false);
+        this.whitePawns = new PawnBoard(this, WHITE);
+        this.blackPawns = new PawnBoard(this, BLACK);
 
-        this.whiteHorses = new HorseBoard(this, true);
-        this.blackHorses = new HorseBoard(this, false);
+        this.whiteHorses = new HorseBoard(this, WHITE);
+        this.blackHorses = new HorseBoard(this, BLACK);
 
-        this.whiteKing = new KingBoard(this, true);
-        this.blackKing = new KingBoard(this, false);
-        this.whiteQueen = new QueenBoard(this, true);
+        this.whiteKing = new KingBoard(this, WHITE);
+        this.blackKing = new KingBoard(this, BLACK);
 
-        this.blackQueen = new QueenBoard(this, false);
+        this.whiteQueen = new QueenBoard(this, WHITE);
+        this.blackQueen = new QueenBoard(this, BLACK);
     }
 
     private void setGameState() {
@@ -102,4 +105,18 @@ public class Chess {
         }
     }
 
+    public static long coordinateToState(String coord) {
+        int file = coord.charAt(0) - 'a';
+        int rank = coord.charAt(1) - '1';
+
+        long square = 1L;
+
+        for (int i = 0; i < file; i++) {
+            Bitboard.slideNorth(square);
+        }
+        for (int j = 0; j < rank; j++) {
+            Bitboard.slideEast(square);
+        }
+        return square;
+    }
 }
