@@ -1,5 +1,6 @@
 package montecarlochess;
 
+import java.util.regex.Pattern;
 import montecarlochess.bitboards.*;
 
 public class Chess {
@@ -61,6 +62,9 @@ public class Chess {
 
         this.whiteBishops = new BishopBoard(this, WHITE);
         this.blackBishops = new BishopBoard(this, BLACK);
+
+        this.whiteCastles = new CastleBoard(this, WHITE);
+        this.blackCastles = new CastleBoard(this, BLACK);
     }
 
     private void setGameState() {
@@ -90,6 +94,7 @@ public class Chess {
         initHorses();
         initKings();
         initBishops();
+        initCastles();
     }
 
     public void initPawns() {
@@ -115,6 +120,11 @@ public class Chess {
     public void initBishops() {
         whiteBishops.state = whiteBishops.init;
         blackBishops.state = Long.reverse(whiteBishops.init);
+    }
+
+    public void initCastles() {
+        whiteCastles.state = whiteCastles.init;
+        blackCastles.state = Long.reverse(whiteCastles.init);
     }
 
     public void setPawns(long state, boolean colour) {
@@ -231,18 +241,47 @@ public class Chess {
         }
 
         long[] wHorses = whiteHorses.getAllPieceStates();
-        for (long pawn : wHorses) {
-            char file = (char) (Bitboard.getFile(pawn) + 'a' - 1);
-            int rank = Bitboard.getRank(pawn);
+        for (long horse : wHorses) {
+            char file = (char) (Bitboard.getFile(horse) + 'a' - 1);
+            int rank = Bitboard.getRank(horse);
             b = b.replace("" + file + rank, WHORSE);
         }
 
         long[] bHorses = blackHorses.getAllPieceStates();
-        for (long pawn : bHorses) {
-            char file = (char) (Bitboard.getFile(pawn) + 'a' - 1);
-            int rank = Bitboard.getRank(pawn);
+        for (long horse : bHorses) {
+            char file = (char) (Bitboard.getFile(horse) + 'a' - 1);
+            int rank = Bitboard.getRank(horse);
             b = b.replace("" + file + rank, BHORSE);
         }
+
+        long[] wBishops = whiteBishops.getAllPieceStates();
+        for (long bishop : wBishops) {
+            char file = (char) (Bitboard.getFile(bishop) + 'a' - 1);
+            int rank = Bitboard.getRank(bishop);
+            b = b.replace("" + file + rank, WBISHOP);
+        }
+        long[] bBishops = blackBishops.getAllPieceStates();
+        for (long bishop : bBishops) {
+            char file = (char) (Bitboard.getFile(bishop) + 'a' - 1);
+            int rank = Bitboard.getRank(bishop);
+            b = b.replace("" + file + rank, BBISHOP);
+        }
+
+        long[] wCastles = whiteCastles.getAllPieceStates();
+        for (long castle : wCastles) {
+            char file = (char) (Bitboard.getFile(castle) + 'a' - 1);
+            int rank = Bitboard.getRank(castle);
+            b = b.replace("" + file + rank, WCASTLE);
+        }
+        long[] bCastles = blackCastles.getAllPieceStates();
+        for (long castle : bCastles) {
+            char file = (char) (Bitboard.getFile(castle) + 'a' - 1);
+            int rank = Bitboard.getRank(castle);
+            b = b.replace("" + file + rank, BCASTLE);
+        }
+
+        b = b.replaceAll("[a-zA-Z]\\d+", " ");
+
         return b;
     }
 }

@@ -64,13 +64,18 @@ public class Bitboard {
      * @return the file of the piece, from 1 to 8
      */
     public static int getFile(long state) {
+        // Edge case: If the piece is the upper left hand corner, it is a negative
+        // number due to 2s complement. Only happens in this case so handle accordingly.
+        if (state < 0) {
+            return 1;
+        }
         /*
          * Since file is independent of rank, we
          * shift the piece into rank 1 for simplicity
          */
         long tempState = state;
         while (tempState > 128) {
-            tempState = tempState >> 8;
+            tempState = tempState >>> 8;
         }
 
         /*
@@ -79,7 +84,7 @@ public class Bitboard {
          */
         int exp = 0;
         while ((tempState & 0b1) == 0) {
-            tempState = tempState >> 1;
+            tempState = tempState >>> 1;
             exp++;
         }
 
