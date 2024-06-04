@@ -20,11 +20,7 @@ public class Chess {
     final String BQUEEN = "♛";
     final String BKING = "♚";
 
-    private Bitboard gameBoard;
-    private Bitboard whiteBoard;
-    private Bitboard blackBoard;
-
-    protected PawnBoard whitePawns;
+    private PawnBoard whitePawns;
     private PawnBoard blackPawns;
 
     private HorseBoard whiteHorses;
@@ -43,10 +39,6 @@ public class Chess {
     private BishopBoard blackBishops;
 
     public Chess() {
-        this.gameBoard = new Bitboard();
-        this.whiteBoard = new Bitboard();
-        this.blackBoard = new Bitboard();
-
         this.whitePawns = new PawnBoard(this, WHITE);
         this.blackPawns = new PawnBoard(this, BLACK);
 
@@ -64,27 +56,6 @@ public class Chess {
 
         this.whiteCastles = new CastleBoard(this, WHITE);
         this.blackCastles = new CastleBoard(this, BLACK);
-    }
-
-    private void setGameState() {
-        long whiteState = getGameState(true);
-        long blackState = getGameState(false);
-        gameBoard.state = whiteState ^ blackState;
-
-    }
-
-    private void setWhiteGameState() {
-        whiteBoard.state = whitePawns.state ^
-                whiteHorses.state ^
-                whiteKing.state ^
-                whiteQueen.state;
-    }
-
-    private void setBlackGameState() {
-        blackBoard.state = blackPawns.state ^
-                blackHorses.state ^
-                blackKing.state ^
-                blackQueen.state;
     }
 
     public void initGame() {
@@ -302,7 +273,7 @@ public class Chess {
             b = b.replace("" + file + rank, BQUEEN);
         }
 
-        // Any squares remaining with a coordinate labeled is empty, repalce with space
+        // Any squares remaining with a coordinate labeled is empty, replace with space
         b = b.replaceAll("[a-zA-Z]\\d+", " ");
 
         return b;
