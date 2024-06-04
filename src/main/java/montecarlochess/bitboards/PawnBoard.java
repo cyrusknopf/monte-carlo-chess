@@ -2,8 +2,6 @@ package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
 
-import java.util.ArrayList;
-
 public class PawnBoard extends Bitboard {
     final protected long init = 0x000000000000FF00L;
     final protected Chess game;
@@ -33,17 +31,6 @@ public class PawnBoard extends Bitboard {
             super.state = init;
         }
         return super.state;
-    }
-
-    // Returns an array of boards containing just each piece of the board.
-    public ArrayList<PawnBoard> getAllBoards() {
-        ArrayList<PawnBoard> pawnBoards = new ArrayList<>();
-        for (long state : this.getAllPieceStates()) {
-            PawnBoard currentBoard = new PawnBoard(this.game, this.colour);
-            currentBoard.state = state;
-            pawnBoards.add(currentBoard);
-        }
-        return pawnBoards;
     }
 
     public long[] makeMoves(long state, boolean colour) {
