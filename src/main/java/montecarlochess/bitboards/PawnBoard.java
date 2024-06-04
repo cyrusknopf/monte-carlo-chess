@@ -3,7 +3,7 @@ package montecarlochess.bitboards;
 import montecarlochess.Chess;
 
 public class PawnBoard extends Bitboard {
-    final protected long init = 0x000000000000FF00L;
+    final public long init = 0x000000000000FF00L;
     final protected Chess game;
     final public boolean colour;
 

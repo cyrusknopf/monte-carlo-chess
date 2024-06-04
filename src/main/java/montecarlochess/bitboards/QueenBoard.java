@@ -3,7 +3,7 @@ package montecarlochess.bitboards;
 import montecarlochess.Chess;
 
 public class QueenBoard extends Bitboard {
-    private long init = 0x10L;
+    final public long init = 0x10L;
     private Chess game;
     private boolean colour;
 

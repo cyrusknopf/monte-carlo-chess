@@ -1,16 +1,17 @@
 package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
+
 public class BishopBoard extends Bitboard {
-    private long init = 0x24L;
+    final public long init = 0x24L;
     private Chess game;
     private boolean colour;
 
     public BishopBoard(Chess game, boolean colour) {
-        this.empty = 0x0L;
         this.game = game;
         this.colour = colour;
     }
+
     public long initialiseBoard(boolean isBlack) {
         if (isBlack) {
             super.state = Long.reverse(init);
@@ -19,8 +20,8 @@ public class BishopBoard extends Bitboard {
         }
         return super.state;
     }
-    
-    public long[] getPseudoLegalMoves(){
+
+    public long[] getPseudoLegalMoves() {
         int file = getFile(state);
         long[] moves = new long[28];
         int ptr = 0;
@@ -116,4 +117,3 @@ public class BishopBoard extends Bitboard {
         return filtered;
     }
 }
-

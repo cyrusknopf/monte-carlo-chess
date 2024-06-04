@@ -2,7 +2,7 @@ package montecarlochess.bitboards;
 
 import montecarlochess.Chess;
 
-public class CastleBoard extends Bitboard{
+public class CastleBoard extends Bitboard {
     private long init = 0x81L;
     private Chess game;
     private boolean colour;
@@ -22,7 +22,7 @@ public class CastleBoard extends Bitboard{
         return super.state;
     }
 
-    public long[] getPseudoLegalMoves(){
+    public long[] getPseudoLegalMoves() {
         int file = getFile(state);
         long[] moves = new long[28];
         int ptr = 0;
@@ -100,7 +100,7 @@ public class CastleBoard extends Bitboard{
                 break;
             }
         }
-        
+
         long[] filtered = new long[ptr];
         for (int i = 0; i < ptr; i++) {
             filtered[i] = moves[i];

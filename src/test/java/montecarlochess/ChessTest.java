@@ -9,4 +9,12 @@ public class ChessTest {
         long actualE4 = 0x0000000008000000;
         assertEquals(actualE4, Chess.coordinateToState("e4"));
     }
+
+    @Test
+    public void printBoard() {
+        Chess c = new Chess();
+        c.initGame();
+        System.out.println(c);
+        assertEquals(1, 1);
+    }
 }
