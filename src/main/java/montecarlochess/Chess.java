@@ -1,6 +1,5 @@
 package montecarlochess;
 
-import java.util.regex.Pattern;
 import montecarlochess.bitboards.*;
 
 public class Chess {
@@ -167,36 +166,32 @@ public class Chess {
         }
     }
 
-    // TODO expand to all pieces
     public long getGameState() {
-        long gameState = whitePawns.state ^
-                blackPawns.state ^
-                blackQueen.state ^
-                whiteQueen.state ^
-                whiteKing.state ^
-                blackKing.state ^
-                whiteHorses.state ^
-                blackHorses.state;
-        return gameState;
+        return getGameState(true) ^ getGameState(false);
     }
 
-    // TODO expand to all pieces
     public long getGameState(boolean colour) {
         if (colour) {
             return whitePawns.state ^
                     whiteHorses.state ^
                     whiteQueen.state ^
                     whiteHorses.state ^
+                    whiteBishops.state ^
+                    whiteCastles.state ^
                     whiteKing.state;
         } else {
             return blackPawns.state ^
                     blackHorses.state ^
                     blackQueen.state ^
                     blackHorses.state ^
+                    blackBishops.state ^
+                    blackCastles.state ^
                     blackKing.state;
         }
     }
 
+    // Takes a coordinate string (e.g. a4) and produces a board with a 1 in that
+    // location only
     public static long coordinateToState(String coord) {
         int file = coord.charAt(0) - 'a';
         int rank = coord.charAt(1) - '1';
@@ -214,6 +209,7 @@ public class Chess {
 
     @Override
     public String toString() {
+        // Create a board with co ordiante keys, and each square with its coordinate
         StringBuilder board = new StringBuilder();
         for (int rank = 8; rank > 0; rank--) {
             for (char file = 'a'; file < 'i'; file++) {
@@ -225,6 +221,8 @@ public class Chess {
         board.append("a b c d e f g h");
 
         String b = board.toString();
+
+        // For each piece, replace the square coordinate with the symbol of that piece
 
         long[] wPawns = whitePawns.getAllPieceStates();
         for (long pawn : wPawns) {
@@ -304,6 +302,7 @@ public class Chess {
             b = b.replace("" + file + rank, BQUEEN);
         }
 
+        // Any squares remaining with a coordinate labeled is empty, repalce with space
         b = b.replaceAll("[a-zA-Z]\\d+", " ");
 
         return b;
