@@ -280,6 +280,30 @@ public class Chess {
             b = b.replace("" + file + rank, BCASTLE);
         }
 
+        {
+            char file = (char) (Bitboard.getFile(whiteKing.state) + 'a' - 1);
+            int rank = Bitboard.getRank(whiteKing.state);
+            b = b.replace("" + file + rank, WKING);
+        }
+
+        {
+            char file = (char) (Bitboard.getFile(blackKing.state) + 'a' - 1);
+            int rank = Bitboard.getRank(blackKing.state);
+            b = b.replace("" + file + rank, BKING);
+        }
+
+        {
+            char file = (char) (Bitboard.getFile(whiteQueen.state) + 'a' - 1);
+            int rank = Bitboard.getRank(whiteQueen.state);
+            b = b.replace("" + file + rank, WQUEEN);
+        }
+
+        {
+            char file = (char) (Bitboard.getFile(blackQueen.state) + 'a' - 1);
+            int rank = Bitboard.getRank(blackQueen.state);
+            b = b.replace("" + file + rank, BQUEEN);
+        }
+
         b = b.replaceAll("[a-zA-Z]\\d+", " ");
 
         return b;

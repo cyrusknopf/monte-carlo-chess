@@ -11,10 +11,20 @@ public class ChessTest {
     }
 
     @Test
-    public void printBoard() {
+    public void printBoardInitGame() {
         Chess c = new Chess();
         c.initGame();
-        System.out.println(c);
-        assertEquals(1, 1);
+        String correct = "♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜ | 8\n" +
+                "♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟ | 7\n" +
+                "                | 6\n" +
+                "                | 5\n" +
+                "                | 4\n" +
+                "                | 3\n" +
+                "♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙ | 2\n" +
+                "♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖ | 1\n" +
+                "---------------\n" +
+                "a b c d e f g h";
+
+        assertEquals(correct, c.toString());
     }
 }
