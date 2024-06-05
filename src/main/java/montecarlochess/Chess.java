@@ -275,7 +275,6 @@ public class Chess {
 
         // Any squares remaining with a coordinate labeled is empty, replace with space
         b = b.replaceAll("[a-z][1-8]", " ");
-
         return b;
     }
 }
