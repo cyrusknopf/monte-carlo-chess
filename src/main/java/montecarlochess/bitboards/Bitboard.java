@@ -113,7 +113,7 @@ public class Bitboard {
     }
 
     public static long slideEast(long state) {
-        state = state >> 1;
+        state = state >>> 1;
         return state;
     }
 
@@ -123,12 +123,12 @@ public class Bitboard {
     }
 
     public static long slideSouth(long state) {
-        state = state >> 8;
+        state = state >>> 8;
         return state;
     }
 
     public static long slideSouthWest(long state) {
-        state = state >> 7;
+        state = state >>> 7;
         return state;
     }
 

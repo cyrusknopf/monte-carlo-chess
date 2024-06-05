@@ -11,6 +11,12 @@ public class ChessTest {
     }
 
     @Test
+    public void h1ToState() {
+        long actualH1 = 0x1L;
+        assertEquals(actualH1, Chess.coordinateToState("h1"));
+    }
+
+    @Test
     public void printBoardInitGame() {
         Chess c = new Chess();
         c.initGame();

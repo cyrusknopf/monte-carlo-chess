@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class GameDriver {
     private Chess game;
+    private boolean inProgress;
 
     public GameDriver() {
         game = new Chess();
@@ -11,6 +12,7 @@ public class GameDriver {
 
     public void initialiseGame() {
         game.initGame();
+        inProgress = true;
     }
 
     // https://stackoverflow.com/questions/2979383/how-to-clear-the-console-using-java
@@ -44,6 +46,8 @@ public class GameDriver {
         GameDriver driver = new GameDriver();
         driver.printStart();
         driver.initialiseGame();
-        driver.readSquareFrom();
+        String square = driver.readSquareFrom();
+        long piece = Chess.coordinateToState(square);
+        System.out.println(piece);
     }
 }

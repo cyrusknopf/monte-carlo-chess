@@ -169,12 +169,14 @@ public class Chess {
 
         long square = 1L;
 
-        for (int i = 0; i < file; i++) {
+        for (int j = 0; j < 7 - file; j++) {
+            square = Bitboard.slideWest(square);
+        }
+
+        for (int i = 0; i < rank; i++) {
             square = Bitboard.slideNorth(square);
         }
-        for (int j = 0; j < 8 - rank; j++) {
-            square = Bitboard.slideEast(square);
-        }
+
         return square;
     }
 
