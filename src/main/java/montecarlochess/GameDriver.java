@@ -23,7 +23,7 @@ public class GameDriver {
         System.out.println("MONTE CARLO CHESS");
     }
 
-    public boolean getMove() {
+    public String getMove() {
         Scanner input = new Scanner(System.in);
         String move = "";
         while (!move.matches("[a-h][1-8]")) {
@@ -31,19 +31,19 @@ public class GameDriver {
             System.out.println(this.game);
             if (move != "")
                 System.out.println("Invalid move");
+            else
+                System.out.println();
             move = input.nextLine(); // Read user input
         }
         clearScreen();
         input.close();
-        return true;
+        return move;
     }
 
     public static void main(String[] args) {
         GameDriver driver = new GameDriver();
         driver.printStart();
         driver.initialiseGame();
-        while (!driver.getMove()) {
-            driver.getMove();
-        }
+        driver.getMove();
     }
 }
