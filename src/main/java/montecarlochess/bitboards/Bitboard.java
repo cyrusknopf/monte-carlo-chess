@@ -7,7 +7,7 @@ public class Bitboard {
     public Bitboard() {
     }
 
-    // Copy contructor
+    // Copy constructor
     public Bitboard(Bitboard other) {
         this.state = other.state;
         this.empty = other.empty;
